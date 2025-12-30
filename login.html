@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Login - Facebook</title>
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Theme Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1876f2",
+                        "primary-hover": "#166fe5",
+                        "background-light": "#f0f2f5",
+                        "background-dark": "#101822",
+                        "card-dark": "#1c252e",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom styles to ensure consistent look */
+        .glass-effect {
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col overflow-x-hidden transition-colors duration-300">
+    <!-- Navbar (Simplified for Login Page) -->
+    <nav class="w-full py-4 px-6 md:px-10 lg:px-40 flex justify-between items-center z-10">
+        <div class="flex items-center gap-2 text-primary">
+            <a href="index.html" class="flex items-center gap-2 text-primary hover:opacity-90">
+                <div class="size-10 bg-primary text-white rounded-full flex items-center justify-center shadow-lg">
+                    <span class="material-symbols-outlined text-3xl">social_leaderboard</span>
+                </div>
+                <h1 class="text-3xl font-extrabold tracking-tighter text-primary hidden md:block">facebook</h1>
+            </a>
+        </div>
+        <div>
+            <!-- Language or Theme Toggle could go here, keeping it clean for now -->
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main class="flex-1 flex items-center justify-center p-4 sm:px-6 lg:px-8 relative">
+        <div class="max-w-[1100px] w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center z-10">
+            <!-- Left Column: Hero Text & Visual -->
+            <div class="flex flex-col space-y-8 animate-fade-in text-center lg:text-left order-2 lg:order-1">
+                <div class="space-y-4">
+                    <h2
+                        class="text-[#111418] dark:text-white text-4xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+                        Connect with friends and the world around you.
+                    </h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 font-medium max-w-lg mx-auto lg:mx-0">
+                        Share what's new and life moments with your friends.
+                    </p>
+                </div>
+                <!-- Abstract Visual representing connection -->
+                <div class="hidden lg:flex w-full h-64 rounded-2xl overflow-hidden shadow-lg relative group">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-500/20 mix-blend-multiply z-10">
+                    </div>
+                    <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                        data-alt="Abstract 3D network mesh gradient representing global digital connections"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCSKHiRp2C29T66L7x4ixoX8gE9-0uHs-Uwt4bcLvVoFJnW2wQB8Kndl4ZV6CIMvHakRh4L5EkuUV02isVqWShFijY0Y8g6KQ16s89nuiZVbxa9Lxxg5yFF7U36XuwAyFniHrqc-OJFKLIX-AHlQZUG2AkycZTBgaZESvnYMj6TLZe9h7dyVNKgfT5hENn1qU9CBK3x3UilSLn2G7_tRTumPyNF_yp2kepV8_ecbsoxFru_a6MveaNHur701-exqT2mu1gWrxps9OY");'>
+                    </div>
+                    <div class="absolute bottom-4 left-4 z-20 flex -space-x-3">
+                        <img alt="" class="w-10 h-10 rounded-full border-2 border-white dark:border-gray-800"
+                            data-alt="User profile picture of a woman smiling"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUTL1BPtdt64EFIdB-7eMqbkz14dmrpI_wJoK5ftp6nxCnZ5R6nYV0LX6ZrSab7v5Za06KtvhJi34HhfYBt-FaZeV_1xFQIqGYOlYNC0U_aRYg_7JsDFwKYgZZUaGZLWmC9SnuAlJfmqYT0r4e2k7XiSyUn0Yb_SGHv-evyv1dQqEL2SZVCRlN0Sp9jLCL31oyHaFfyGVp_eiePmFApHyOHTuRP5Qlv2Ac7-G9Th7NGuVFxTNYEs4P8BHV_iFjZ7doRm8sWUsn_hc" />
+                        <img alt="" class="w-10 h-10 rounded-full border-2 border-white dark:border-gray-800"
+                            data-alt="User profile picture of a man looking confident"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuALWEW4QODzdqXGZ-zKRHSWkaU6KXR3A6B3hcZ64UU-Z9_1dducwYsDh0pEdOTpFXrJAYc68lhBQK6mGEnFPcSpxFrUL843JpCModYms7JjHcd8o9KNT8igDiAa5BSQ1Uis5KFhihkaGggbUPI1D33hMJuc9-dgWBIfOXvMERLELiSKrrWRPVNEZ07Qt9AsxcnXcVjPzm8sr_GREW8tYGb8DO7xgAM0ldWt3sZbknoICbDTHInh6YLNVR_LOlAxIwhxPFT-dDum5z8" />
+                        <img alt="" class="w-10 h-10 rounded-full border-2 border-white dark:border-gray-800"
+                            data-alt="User profile picture of a man smiling"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtpghqSyoGmolUn-zYhDfvscbFXmFJt0hHK96Ewpa8xB_Rr3D8mUJc1eH6kRhaMWFyUh1_oyugNdtcpbchjA8S2FCAtDvigmgxEicx25mmtTbUIzmon1KmCfU-Z2yAwTM-ZCYOx6r9NGeJk1DCHBDq7OUgLgmjFURWWAS6k7TLqKe_pI7euUQSHPVECIpumRA2iruqLeF9p7ljCjE3OxBP0fV3_uD64WJr_3-DMvu3zLG8mMCLa22VxuqUUe8qjENkdSE-ptzfMJM" />
+                        <div
+                            class="w-10 h-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600">
+                            +1M</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Column: Auth Card -->
+            <div class="w-full max-w-md mx-auto order-1 lg:order-2">
+                <div
+                    class="bg-white dark:bg-card-dark rounded-xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-800">
+                    <!-- Tabs -->
+                    <div class="flex border-b border-gray-200 dark:border-gray-700">
+                        <button
+                            class="flex-1 py-4 text-center font-bold text-sm text-primary border-b-[3px] border-primary bg-primary/5 transition-colors">
+                            Log In
+                        </button>
+                        <button
+                            class="flex-1 py-4 text-center font-bold text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+                            Sign Up
+                        </button>
+                    </div>
+                    <!-- Form Content -->
+                    <div class="p-6 sm:p-8 space-y-6">
+                        <div class="text-center">
+                            <h2 class="text-2xl font-bold text-[#111418] dark:text-white">Welcome Back</h2>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">We missed you! Please enter your
+                                details.</p>
+                        </div>
+                        <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='index.html';">
+                            <div class="space-y-1">
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300"
+                                    for="email">Email or Phone</label>
+                                <div class="relative">
+                                    <input
+                                        class="w-full h-12 px-4 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800/50 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                        id="email" placeholder="Enter your email" type="text" />
+                                    <span
+                                        class="material-symbols-outlined absolute right-3 top-3 text-gray-400">mail</span>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300"
+                                    for="password">Password</label>
+                                <div class="relative">
+                                    <input
+                                        class="w-full h-12 px-4 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800/50 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                        id="password" placeholder="Enter your password" type="password" />
+                                    <span
+                                        class="material-symbols-outlined absolute right-3 top-3 text-gray-400 cursor-pointer hover:text-gray-600">visibility</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
+                                        type="checkbox" />
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Remember me</span>
+                                </label>
+                                <a class="text-sm font-semibold text-primary hover:text-primary-hover hover:underline"
+                                    href="#">Forgot password?</a>
+                            </div>
+                            <button
+                                class="w-full h-12 bg-primary hover:bg-primary-hover text-white text-base font-bold rounded-lg shadow-md hover:shadow-lg transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
+                                Log In
+                            </button>
+                        </form>
+                        <!-- Divider -->
+                        <div class="relative flex items-center py-2">
+                            <div class="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
+                            <span class="flex-shrink-0 mx-4 text-gray-400 text-xs font-bold uppercase tracking-wide">Or
+                                continue with</span>
+                            <div class="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
+                        </div>
+                        <!-- Social Buttons -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <button
+                                class="flex items-center justify-center gap-2 h-10 px-4 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-white/5 transition-colors group">
+                                <svg class="w-5 h-5" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                                        fill="#4285F4"></path>
+                                    <path
+                                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                                        fill="#34A853"></path>
+                                    <path
+                                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                                        fill="#FBBC05"></path>
+                                    <path
+                                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                                        fill="#EA4335"></path>
+                                </svg>
+                                <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Google</span>
+                            </button>
+                            <button
+                                class="flex items-center justify-center gap-2 h-10 px-4 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+                                <svg class="w-5 h-5 dark:fill-white fill-gray-900" viewbox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M17.05 20.28c-.98.95-2.05.88-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.78 1.18-.19 2.31-.89 3.51-.84 1.54.06 2.68.75 3.58 1.84-3.23 1.89-2.59 6.27.67 7.72-.54 1.55-1.28 2.85-2.84 3.47zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z">
+                                    </path>
+                                </svg>
+                                <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Apple</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Footer of Card -->
+                    <div
+                        class="bg-gray-50 dark:bg-white/5 py-4 px-8 border-t border-gray-100 dark:border-gray-800 text-center">
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            <a class="font-bold text-primary hover:underline" href="#">Create a Page</a> for a
+                            celebrity, brand or business.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Page Footer -->
+    <footer class="bg-white dark:bg-card-dark border-t border-gray-200 dark:border-gray-800 py-6 mt-12 w-full">
+        <div class="max-w-[1100px] mx-auto px-4 lg:px-0">
+            <div class="flex flex-wrap gap-x-6 gap-y-2 justify-center text-xs text-gray-500 dark:text-gray-400">
+                <a class="hover:underline" href="#">English (US)</a>
+                <a class="hover:underline" href="#">Español</a>
+                <a class="hover:underline" href="#">Français (France)</a>
+                <a class="hover:underline" href="#">中文(简体)</a>
+                <a class="hover:underline" href="#">العربية</a>
+                <a class="hover:underline" href="#">Português (Brasil)</a>
+                <a class="hover:underline" href="#">Italiano</a>
+            </div>
+            <div class="h-px w-full bg-gray-200 dark:bg-gray-700 my-4"></div>
+            <div class="flex flex-wrap gap-x-4 gap-y-2 justify-center text-xs text-gray-500 dark:text-gray-400">
+                <a class="hover:underline" href="#">Sign Up</a>
+                <a class="hover:underline" href="#">Log In</a>
+                <a class="hover:underline" href="#">Messenger</a>
+                <a class="hover:underline" href="#">Facebook Lite</a>
+                <a class="hover:underline" href="#">Video</a>
+                <a class="hover:underline" href="#">Places</a>
+                <a class="hover:underline" href="#">Games</a>
+                <a class="hover:underline" href="#">Marketplace</a>
+                <a class="hover:underline" href="#">Meta Pay</a>
+                <a class="hover:underline" href="#">Meta Store</a>
+                <a class="hover:underline" href="#">Meta Quest</a>
+                <a class="hover:underline" href="#">Instagram</a>
+                <a class="hover:underline" href="#">Threads</a>
+            </div>
+            <div class="mt-4 text-center text-xs text-gray-500 dark:text-gray-400">
+                Meta © 2023
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

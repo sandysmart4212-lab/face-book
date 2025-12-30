@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Marketplace</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Theme Configuration -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1876f2",
+                        "background-light": "#f0f2f5",
+                        "background-dark": "#18191a",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#242526",
+                        "text-main-light": "#050505",
+                        "text-main-dark": "#e4e6eb",
+                        "text-secondary-light": "#65676b",
+                        "text-secondary-dark": "#b0b3b8",
+                        "border-light": "#ced0d4",
+                        "border-dark": "#3e4042",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #bcc0c4;
+            border-radius: 20px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background-color: #4e4f50;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-text-main-light dark:text-text-main-dark transition-colors duration-200">
+    <div class="flex min-h-screen flex-col">
+        <!-- Sticky Header -->
+        <header
+            class="sticky top-0 z-50 flex h-16 w-full items-center justify-between border-b border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark px-4 shadow-sm lg:px-6">
+            <div class="flex items-center gap-4">
+                <!-- Logo -->
+                <a class="flex items-center gap-2 text-primary hover:opacity-90" href="#">
+                    <div class="flex size-10 items-center justify-center rounded-full bg-primary/10">
+                        <span class="material-symbols-outlined text-3xl text-primary">storefront</span>
+                    </div>
+                    <span class="hidden text-2xl font-bold tracking-tight text-primary lg:block">Marketplace</span>
+                </a>
+                <!-- Search Bar -->
+                <div class="ml-2 hidden md:block">
+                    <label
+                        class="relative flex h-10 w-64 items-center overflow-hidden rounded-full bg-background-light dark:bg-[#3a3b3c] lg:w-80">
+                        <div
+                            class="flex h-full items-center justify-center pl-3 pr-2 text-text-secondary-light dark:text-text-secondary-dark">
+                            <span class="material-symbols-outlined text-[20px]">search</span>
+                        </div>
+                        <input
+                            class="h-full w-full border-none bg-transparent px-2 text-[15px] text-text-main-light placeholder-text-secondary-light focus:ring-0 dark:text-text-main-dark dark:placeholder-text-secondary-dark"
+                            placeholder="Search Marketplace" />
+                    </label>
+                </div>
+            </div>
+            <!-- Right Actions -->
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden gap-1 md:flex">
+                    <a class="flex size-10 items-center justify-center rounded-full bg-transparent hover:bg-background-light dark:hover:bg-[#3a3b3c]"
+                        href="index.html" title="Browse">
+                        <span
+                            class="material-symbols-outlined text-text-main-light dark:text-text-main-dark fill-1">home</span>
+                    </a>
+                    <a class="flex size-10 items-center justify-center rounded-full bg-transparent hover:bg-background-light dark:hover:bg-[#3a3b3c]"
+                        href="notifications.html" title="Notifications">
+                        <span
+                            class="material-symbols-outlined text-text-main-light dark:text-text-main-dark">notifications</span>
+                    </a>
+                    <a class="flex size-10 items-center justify-center rounded-full bg-transparent hover:bg-background-light dark:hover:bg-[#3a3b3c]"
+                        href="messages.html" title="Inbox">
+                        <span
+                            class="material-symbols-outlined text-text-main-light dark:text-text-main-dark">chat</span>
+                    </a>
+                </nav>
+                <button
+                    class="flex h-9 items-center gap-2 rounded-full bg-primary/10 px-4 text-sm font-semibold text-primary transition-colors hover:bg-primary/20">
+                    <span class="material-symbols-outlined text-[20px]">add</span>
+                    <span class="hidden sm:inline">Create New Listing</span>
+                    <span class="sm:hidden">Sell</span>
+                </button>
+                <div
+                    class="h-9 w-9 overflow-hidden rounded-full bg-gray-200 ring-2 ring-transparent transition-all hover:ring-primary/20">
+                    <div class="h-full w-full bg-cover bg-center"
+                        data-alt="User profile avatar showing a smiling person"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDS2OGIfsoLSZSji2Xm2VH4QH-Lk3opI76llAOhgQ46NpM5_LmNBn_bNaL3F723NL8HG5ysLHtgCyW96jcH299I6PcROKeOislaMMB5dFbFrkPQTLYmZDITYeZ6FS1XF-RH2ZpChhGmzTBSGCmiuXCRlwtU88XAvQRZEEzKsf1z4YnjD9gBG0S-2-VY2SaZlwKCZrJzmE8vek_VN98nQgAcrlYlv00Wbte8h7fEdZo8C17veVxV3aPtgqvWFSpsi0Q5CoEHTg_0k5E");'>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Layout -->
+        <div class="flex flex-1 overflow-hidden">
+            <!-- Sidebar (Left) -->
+            <aside
+                class="hidden w-[360px] flex-col overflow-y-auto border-r border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark pb-10 lg:flex">
+                <div class="p-4">
+                    <div class="mb-4 flex items-center justify-between">
+                        <h2 class="text-xl font-bold text-text-main-light dark:text-text-main-dark">Marketplace</h2>
+                        <button
+                            class="flex h-9 w-9 items-center justify-center rounded-full bg-background-light text-text-main-light hover:bg-gray-200 dark:bg-[#3a3b3c] dark:text-text-main-dark dark:hover:bg-[#4e4f50]">
+                            <span class="material-symbols-outlined">settings</span>
+                        </button>
+                    </div>
+                    <!-- Search (Mobile/Tablet fallback if header search is hidden, but keeping strictly for sidebar logic here) -->
+                    <div class="relative mb-6">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <span
+                                class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark">search</span>
+                        </div>
+                        <input
+                            class="block w-full rounded-full border-none bg-background-light py-2 pl-10 pr-3 text-sm text-text-main-light placeholder-text-secondary-light focus:ring-2 focus:ring-primary dark:bg-[#3a3b3c] dark:text-text-main-dark dark:placeholder-text-secondary-dark"
+                            placeholder="Search listings..." type="text" />
+                    </div>
+                    <!-- Categories -->
+                    <div class="space-y-1">
+                        <h3
+                            class="mb-2 px-2 text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark">
+                            Categories</h3>
+                        <a class="flex items-center gap-3 rounded-lg bg-background-light px-3 py-2 transition-colors dark:bg-[#3a3b3c]"
+                            href="#">
+                            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white">
+                                <span class="material-symbols-outlined text-[20px]">storefront</span>
+                            </div>
+                            <span class="text-[15px] font-medium text-text-main-light dark:text-text-main-dark">Browse
+                                All</span>
+                        </a>
+                        <a class="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-background-light dark:hover:bg-[#3a3b3c]"
+                            href="#">
+                            <div
+                                class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-text-main-light dark:bg-[#4e4f50] dark:text-text-main-dark">
+                                <span class="material-symbols-outlined text-[20px]">notifications</span>
+                            </div>
+                            <span
+                                class="text-[15px] font-medium text-text-main-light dark:text-text-main-dark">Notifications</span>
+                        </a>
+                        <a class="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-background-light dark:hover:bg-[#3a3b3c]"
+                            href="#">
+                            <div
+                                class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-text-main-light dark:bg-[#4e4f50] dark:text-text-main-dark">
+                                <span class="material-symbols-outlined text-[20px]">inbox</span>
+                            </div>
+                            <span
+                                class="text-[15px] font-medium text-text-main-light dark:text-text-main-dark">Inbox</span>
+                        </a>
+                        <a class="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-background-light dark:hover:bg-[#3a3b3c]"
+                            href="#">
+                            <div
+                                class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-text-main-light dark:bg-[#4e4f50] dark:text-text-main-dark">
+                                <span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+                            </div>
+                            <span
+                                class="text-[15px] font-medium text-text-main-light dark:text-text-main-dark">Buying</span>
+                        </a>
+                        <a class="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-background-light dark:hover:bg-[#3a3b3c]"
+                            href="#">
+                            <div
+                                class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-text-main-light dark:bg-[#4e4f50] dark:text-text-main-dark">
+                                <span class="material-symbols-outlined text-[20px]">sell</span>
+                            </div>
+                            <span
+                                class="text-[15px] font-medium text-text-main-light dark:text-text-main-dark">Selling</span>
+                        </a>
+                    </div>
+                    <div class="my-4 h-px bg-border-light dark:bg-border-dark"></div>
+                    <!-- Filters -->
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between px-2">
+                            <h3 class="text-base font-bold text-text-main-light dark:text-text-main-dark">Filters</h3>
+                            <a class="text-sm font-medium text-primary hover:underline" href="#">Reset</a>
+                        </div>
+                        <!-- Location -->
+                        <div class="px-2">
+                            <p class="mb-2 text-sm font-semibold text-text-main-light dark:text-text-main-dark">Location
+                            </p>
+                            <div
+                                class="group relative flex items-center rounded-lg bg-background-light dark:bg-[#3a3b3c]">
+                                <span class="material-symbols-outlined absolute left-3 text-primary">location_on</span>
+                                <input
+                                    class="block w-full rounded-lg border-none bg-transparent py-2.5 pl-10 pr-3 text-sm font-medium text-text-main-light placeholder-text-secondary-light focus:ring-2 focus:ring-inset focus:ring-primary dark:text-text-main-dark dark:placeholder-text-secondary-dark"
+                                    placeholder="Enter location" type="text" value="New York, NY" />
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Radius:
+                                    10km</span>
+                                <input class="h-1 w-24 rounded-lg bg-gray-300 accent-primary dark:bg-gray-600" max="100"
+                                    min="1" type="range" value="10" />
+                            </div>
+                        </div>
+                        <!-- Price Range -->
+                        <div class="px-2">
+                            <p class="mb-3 text-sm font-semibold text-text-main-light dark:text-text-main-dark">Price
+                                Range</p>
+                            <div class="flex gap-2">
+                                <div class="relative flex-1">
+                                    <span
+                                        class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-text-secondary-light">$</span>
+                                    <input
+                                        class="w-full rounded-lg border border-border-light bg-background-light py-2 pl-6 pr-2 text-sm focus:border-primary focus:ring-primary dark:border-border-dark dark:bg-[#3a3b3c] dark:text-white"
+                                        placeholder="Min" type="number" />
+                                </div>
+                                <div class="relative flex-1">
+                                    <span
+                                        class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-text-secondary-light">$</span>
+                                    <input
+                                        class="w-full rounded-lg border border-border-light bg-background-light py-2 pl-6 pr-2 text-sm focus:border-primary focus:ring-primary dark:border-border-dark dark:bg-[#3a3b3c] dark:text-white"
+                                        placeholder="Max" type="number" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Specific Categories List -->
+                        <div class="px-2">
+                            <p class="mb-2 text-sm font-semibold text-text-main-light dark:text-text-main-dark">Browse
+                                by Category</p>
+                            <div class="flex flex-col gap-1">
+                                <label
+                                    class="flex cursor-pointer items-center gap-3 rounded-md p-2 hover:bg-background-light dark:hover:bg-[#3a3b3c]">
+                                    <span
+                                        class="material-symbols-outlined rounded-full bg-gray-200 p-1.5 text-sm dark:bg-[#4e4f50]">directions_car</span>
+                                    <span
+                                        class="flex-1 text-sm font-medium text-text-main-light dark:text-text-main-dark">Vehicles</span>
+                                </label>
+                                <label
+                                    class="flex cursor-pointer items-center gap-3 rounded-md p-2 hover:bg-background-light dark:hover:bg-[#3a3b3c]">
+                                    <span
+                                        class="material-symbols-outlined rounded-full bg-gray-200 p-1.5 text-sm dark:bg-[#4e4f50]">checkroom</span>
+                                    <span
+                                        class="flex-1 text-sm font-medium text-text-main-light dark:text-text-main-dark">Apparel</span>
+                                </label>
+                                <label
+                                    class="flex cursor-pointer items-center gap-3 rounded-md p-2 hover:bg-background-light dark:hover:bg-[#3a3b3c]">
+                                    <span
+                                        class="material-symbols-outlined rounded-full bg-gray-200 p-1.5 text-sm dark:bg-[#4e4f50]">smartphone</span>
+                                    <span
+                                        class="flex-1 text-sm font-medium text-text-main-light dark:text-text-main-dark">Electronics</span>
+                                </label>
+                                <label
+                                    class="flex cursor-pointer items-center gap-3 rounded-md p-2 hover:bg-background-light dark:hover:bg-[#3a3b3c]">
+                                    <span
+                                        class="material-symbols-outlined rounded-full bg-gray-200 p-1.5 text-sm dark:bg-[#4e4f50]">chair</span>
+                                    <span
+                                        class="flex-1 text-sm font-medium text-text-main-light dark:text-text-main-dark">Home
+                                        Goods</span>
+                                </label>
+                                <label
+                                    class="flex cursor-pointer items-center gap-3 rounded-md p-2 hover:bg-background-light dark:hover:bg-[#3a3b3c]">
+                                    <span
+                                        class="material-symbols-outlined rounded-full bg-gray-200 p-1.5 text-sm dark:bg-[#4e4f50]">piano</span>
+                                    <span
+                                        class="flex-1 text-sm font-medium text-text-main-light dark:text-text-main-dark">Musical
+                                        Instruments</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <!-- Main Content Area -->
+            <main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark p-4 md:p-6 lg:p-8">
+                <div class="mx-auto max-w-[1400px]">
+                    <!-- Headline Section -->
+                    <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+                        <div>
+                            <h1 class="text-2xl font-bold text-text-main-light dark:text-text-main-dark">Today's Picks
+                            </h1>
+                            <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Recommended for
+                                you in New York, NY</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <a class="text-sm font-medium text-primary hover:underline" href="#">New York · 60km</a>
+                        </div>
+                    </div>
+                    <!-- Products Grid -->
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+                        <!-- Item Card 1 -->
+                        <div
+                            class="group relative flex cursor-pointer flex-col rounded-xl bg-surface-light shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:bg-surface-dark">
+                            <div class="relative aspect-square w-full overflow-hidden rounded-t-xl">
+                                <div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                    data-alt="White Apple AirPods Pro case and earbuds on a clean surface"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCW-2YkGHpa_L6ECZEwmx8DF4t2sMYoNp_8RjakRwTLd0dFFlu_Y7SMEEHIEEcMne_QSOCEPsb9BWzs-c1wgd-elb-RqbwDFeYUpDJLbse17NIKjNqAfzLUcG4LF5QHIw_HlX6Opj2isI19hFJs_7EUrk6IklmVKkGQg2Wr7X1YM20p18fBIyQp4i5y-3t-2YpNSEEPtYQ2s5NjPx8pnwzmIlAy-Inn8UxQqZgwIK0jw5Z31kOx7vMeQlcB_3l_7tRWZxKsxvgKnHY");'>
+                                </div>
+                                <div
+                                    class="absolute right-2 top-2 rounded-full bg-black/40 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-black/60">
+                                    <span class="material-symbols-outlined text-[20px]">favorite</span>
+                                </div>
+                                <button
+                                    class="absolute bottom-3 left-1/2 flex -translate-x-1/2 translate-y-12 items-center gap-2 whitespace-nowrap rounded-full bg-surface-light px-4 py-2 text-sm font-bold text-text-main-light opacity-0 shadow-lg transition-all hover:bg-gray-100 group-hover:translate-y-0 group-hover:opacity-100 dark:bg-[#3a3b3c] dark:text-white dark:hover:bg-[#4e4f50]">
+                                    <span class="material-symbols-outlined text-[18px]">chat</span>
+                                    Message
+                                </button>
+                            </div>
+                            <div class="flex flex-col gap-1 p-3">
+                                <div class="flex items-baseline justify-between">
+                                    <span
+                                        class="text-lg font-bold text-text-main-light dark:text-text-main-dark">$180</span>
+                                </div>
+                                <h3
+                                    class="line-clamp-2 text-[15px] font-medium leading-snug text-text-main-light dark:text-text-main-dark">
+                                    Apple AirPods Pro - Like New with Box</h3>
+                                <div
+                                    class="mt-1 flex items-center justify-between text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                                    <span>Brooklyn, NY</span>
+                                    <span>2h ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item Card 2 -->
+                        <div
+                            class="group relative flex cursor-pointer flex-col rounded-xl bg-surface-light shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:bg-surface-dark">
+                            <div class="relative aspect-square w-full overflow-hidden rounded-t-xl">
+                                <div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                    data-alt="Mid-century modern wooden chair in a living room"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCFbRiqYZw7jSLV0whBAJ6brck078U4ld_zs-8ZhSL0IVk5dvPY0UXIVmX3FtlnMYnS1SSPoeUkSaJkegFfeiDiwwjVMfZVj4ep3um4jfu3dRH_CzLnxDZHCFIt7zrFV49ktMx-HQB0SGPaQHNKFGHW9UbNwi3iQnzY6j-IbSKZ0BiujNAZ7gEstMQNwHtVdN-FTd0Wvtrnk4BCZe8HUJcfVGSXT6K9XyeZVQ0KfxvCnaWSGwlN7_AQcI1gurNKZPXa1rPdUq42wkQ");'>
+                                </div>
+                                <div
+                                    class="absolute right-2 top-2 rounded-full bg-black/40 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-black/60">
+                                    <span class="material-symbols-outlined text-[20px]">favorite</span>
+                                </div>
+                                <button
+                                    class="absolute bottom-3 left-1/2 flex -translate-x-1/2 translate-y-12 items-center gap-2 whitespace-nowrap rounded-full bg-surface-light px-4 py-2 text-sm font-bold text-text-main-light opacity-0 shadow-lg transition-all hover:bg-gray-100 group-hover:translate-y-0 group-hover:opacity-100 dark:bg-[#3a3b3c] dark:text-white dark:hover:bg-[#4e4f50]">
+                                    <span class="material-symbols-outlined text-[18px]">chat</span>
+                                    Message
+                                </button>
+                            </div>
+                            <div class="flex flex-col gap-1 p-3">
+                                <div class="flex items-baseline justify-between">
+                                    <span
+                                        class="text-lg font-bold text-text-main-light dark:text-text-main-dark">$450</span>
+                                </div>
+                                <h3
+                                    class="line-clamp-2 text-[15px] font-medium leading-snug text-text-main-light dark:text-text-main-dark">
+                                    Vintage Mid-Century Modern Armchair</h3>
+                                <div
+                                    class="mt-1 flex items-center justify-between text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                                    <span>Queens, NY</span>
+                                    <span>5h ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item Card 3 -->
+                        <div
+                            class="group relative flex cursor-pointer flex-col rounded-xl bg-surface-light shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:bg-surface-dark">
+                            <div class="relative aspect-square w-full overflow-hidden rounded-t-xl">
+                                <div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                    data-alt="Silver Macbook Pro laptop open on a desk"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCsbDMIqrzdpawTztLbKnoALA_g39tiL7FkEOMcPF3la-YQXKysAk2DJCdVw3MYwbGUBwoDlwFdH52rzfelen6xXRf4nWoG03Xw9Abybw8b-uOGcq4d0T_oxmSsdcgqk1_kasSvdoC8-QVNYpfPcI-omx3J4pCUEhIrNl1kdqnf7wMEZAaMSbXBWR2I8ezLJpt5XyjETfelnQ20YL3FuglnhXtFG1sXtoq1se9mCepItNqrNUGM2vTqnGrw6f3yDs_r_HP6sYKoQYM");'>
+                                </div>
+                                <div
+                                    class="absolute right-2 top-2 rounded-full bg-black/40 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-black/60">
+                                    <span class="material-symbols-outlined text-[20px]">favorite</span>
+                                </div>
+                                <button
+                                    class="absolute bottom-3 left-1/2 flex -translate-x-1/2 translate-y-12 items-center gap-2 whitespace-nowrap rounded-full bg-surface-light px-4 py-2 text-sm font-bold text-text-main-light opacity-0 shadow-lg transition-all hover:bg-gray-100 group-hover:translate-y-0 group-hover:opacity-100 dark:bg-[#3a3b3c] dark:text-white dark:hover:bg-[#4e4f50]">
+                                    <span class="material-symbols-outlined text-[18px]">chat</span>
+                                    Message
+                                </button>
+                            </div>
+                            <div class="flex flex-col gap-1 p-3">
+                                <div class="flex items-baseline justify-between">
+                                    <span
+                                        class="text-lg font-bold text-text-main-light dark:text-text-main-dark">$1,200</span>
+                                </div>
+                                <h3
+                                    class="line-clamp-2 text-[15px] font-medium leading-snug text-text-main-light dark:text-text-main-dark">
+                                    MacBook Pro M1 14-inch, Space Gray</h3>
+                                <div
+                                    class="mt-1 flex items-center justify-between text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                                    <span>Manhattan, NY</span>
+                                    <span>1d ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item Card 4 -->
+                        <div
+                            class="group relative flex cursor-pointer flex-col rounded-xl bg-surface-light shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:bg-surface-dark">
+                            <div class="relative aspect-square w-full overflow-hidden rounded-t-xl">
+                                <div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                    data-alt="Classic acoustic guitar leaning against a wall"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAT9RESXRUv_C9XPH7kcdoZvVRD87rtF5zI76OLwMctUf6tGmKKlt9wtdx0YeEWDfa4CXaUc2VgaBGruZdCS7Y3obGEZbl_qWlh_5FQZpUyF4RjHiRc56L3YEOA5xjluDSUgrEr-8Sq1tHjTEG3L3bCrKccEZ6XbTbeEvY5Urj3tj0fM0vCc3c7W5rne8G3fO6hqljBM2HKcOV1zEfMSE6kQXlK6BYYEjElq_E8cwkAtYX6NSBP_LTURMkZQTRfkZwcB3VStX3-zz0");'>
+                                </div>
+                                <div
+                                    class="absolute right-2 top-2 rounded-full bg-black/40 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-black/60">
+                                    <span class="material-symbols-outlined text-[20px]">favorite</span>
+                                </div>
+                                <button
+                                    class="absolute bottom-3 left-1/2 flex -translate-x-1/2 translate-y-12 items-center gap-2 whitespace-nowrap rounded-full bg-surface-light px-4 py-2 text-sm font-bold text-text-main-light opacity-0 shadow-lg transition-all hover:bg-gray-100 group-hover:translate-y-0 group-hover:opacity-100 dark:bg-[#3a3b3c] dark:text-white dark:hover:bg-[#4e4f50]">
+                                    <span class="material-symbols-outlined text-[18px]">chat</span>
+                                    Message
+                                </button>
+                            </div>
+                            <div class="flex flex-col gap-1 p-3">
+                                <div class="flex items-baseline justify-between">
+                                    <span
+                                        class="text-lg font-bold text-text-main-light dark:text-text-main-dark">$300</span>
+                                </div>
+                                <h3
+                                    class="line-clamp-2 text-[15px] font-medium leading-snug text-text-main-light dark:text-text-main-dark">
+                                    Yamaha Acoustic Guitar FG800</h3>
+                                <div
+                                    class="mt-1 flex items-center justify-between text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                                    <span>Jersey City, NJ</span>
+                                    <span>3d ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item Card 5 -->
+                        <div
+                            class="group relative flex cursor-pointer flex-col rounded-xl bg-surface-light shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:bg-surface-dark">
+                            <div class="relative aspect-square w-full overflow-hidden rounded-t-xl">
+                                <div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                    data-alt="Monstera plant in a ceramic pot"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA_OYWssrm6-VOCY6Xh_378P-WockTUohhjTTZPuGnUeqzjkA7IZ_faGkrv5jSUyQhCcuRK_bn3Yombuf5MbkAsriaT2ByXvpWERDQp7rXHPfVYic1Na_6Pr6uEwh8ulR32w30DNhVpRRSm6iC45O4YCqcX_ZwpOcUIur3OrxW5sBppRHYHjMr7PA_TjnmtD-3VxuHulL4i--Yh9a3-jDrfWm7nmchcA92QiDa55q-prcP-fsdFZR9TtEfGUyvTbcRHs8PhpVz2haE");'>
+                                </div>
+                                <div
+                                    class="absolute right-2 top-2 rounded-full bg-black/40 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-black/60">
+                                    <span class="material-symbols-outlined text-[20px]">favorite</span>
+                                </div>
+                                <button
+                                    class="absolute bottom-3 left-1/2 flex -translate-x-1/2 translate-y-12 items-center gap-2 whitespace-nowrap rounded-full bg-surface-light px-4 py-2 text-sm font-bold text-text-main-light opacity-0 shadow-lg transition-all hover:bg-gray-100 group-hover:translate-y-0 group-hover:opacity-100 dark:bg-[#3a3b3c] dark:text-white dark:hover:bg-[#4e4f50]">
+                                    <span class="material-symbols-outlined text-[18px]">chat</span>
+                                    Message
+                                </button>
+                            </div>
+                            <div class="flex flex-col gap-1 p-3">
+                                <div class="flex items-baseline justify-between">
+                                    <span
+                                        class="text-lg font-bold text-text-main-light dark:text-text-main-dark">$45</span>
+                                </div>
+                                <h3
+                                    class="line-clamp-2 text-[15px] font-medium leading-snug text-text-main-light dark:text-text-main-dark">
+                                    Large Monstera Deliciosa Plant</h3>
+                                <div
+                                    class="mt-1 flex items-center justify-between text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                                    <span>Brooklyn, NY</span>
+                                    <span>4h ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item Card 6 -->
+                        <div
+                            class="group relative flex cursor-pointer flex-col rounded-xl bg-surface-light shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:bg-surface-dark">
+                            <div class="relative aspect-square w-full overflow-hidden rounded-t-xl">
+                                <div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                    data-alt="Retro road bicycle parked on a street"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVaVTSNPO2kECL5rUYc4j9PsgJ_2-qgFxWQmOQQExNpFsDoLVbwukKfsl_s8Rl0GWwKrbesTfAEXk9iy87YesWMht4rcmNpNTyFINeeGF3aBsHP0j4enJlX2jYZQzdv2oxrCC2hayaNRnfLpt-LQpYS9M9Siq8Him1SUZvtgd9BH0_vlfAh16kX36x3vWWO0XzL5gBcDdRiMXxb0xD5ROZhqBh6bZTHraMI4GuI17uBgZt0yEB2-bve6KoSmkDUrKoCydiRU0Gpq4");'>
+                                </div>
+                                <div
+                                    class="absolute right-2 top-2 rounded-full bg-black/40 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-black/60">
+                                    <span class="material-symbols-outlined text-[20px]">favorite</span>
+                                </div>
+                                <button
+                                    class="absolute bottom-3 left-1/2 flex -translate-x-1/2 translate-y-12 items-center gap-2 whitespace-nowrap rounded-full bg-surface-light px-4 py-2 text-sm font-bold text-text-main-light opacity-0 shadow-lg transition-all hover:bg-gray-100 group-hover:translate-y-0 group-hover:opacity-100 dark:bg-[#3a3b3c] dark:text-white dark:hover:bg-[#4e4f50]">
+                                    <span class="material-symbols-outlined text-[18px]">chat</span>
+                                    Message
+                                </button>
+                            </div>
+                            <div class="flex flex-col gap-1 p-3">
+                                <div class="flex items-baseline justify-between">
+                                    <span
+                                        class="text-lg font-bold text-text-main-light dark:text-text-main-dark">$150</span>
+                                </div>
+                                <h3
+                                    class="line-clamp-2 text-[15px] font-medium leading-snug text-text-main-light dark:text-text-main-dark">
+                                    Vintage Schwinn Road Bike - Needs Work</h3>
+                                <div
+                                    class="mt-1 flex items-center justify-between text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                                    <span>Astoria, NY</span>
+                                    <span>1 week ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item Card 7 -->
+                        <div
+                            class="group relative flex cursor-pointer flex-col rounded-xl bg-surface-light shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:bg-surface-dark">
+                            <div class="relative aspect-square w-full overflow-hidden rounded-t-xl">
+                                <div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                    data-alt="Blue denim jacket on a hanger"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA1Ne60OHpgQ-GionRvUFc3PGXLRdh9bsTXyt9xfvyS2g-YMNlx2Ys8wJ6bmer28rvVOYNl61ta5cSrf6jEbhAvH6DPcejk4z1-5cwzH8tuk4aG3OJ6T6KMZ3VHraCdjkyuV2nmb3KHEv9S32_KxnIcskftdd91o3AQWa8Oshl3XG1p3xg1zUSaltvrB_3r-oEkjo--j4Q294ho_3K8r5HZIuxsl4bq9qW8-XEFaVJlr4yJmXcwOZV65zRdoIIzBmvxaqceyzzgFWc");'>
+                                </div>
+                                <div
+                                    class="absolute right-2 top-2 rounded-full bg-black/40 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-black/60">
+                                    <span class="material-symbols-outlined text-[20px]">favorite</span>
+                                </div>
+                                <button
+                                    class="absolute bottom-3 left-1/2 flex -translate-x-1/2 translate-y-12 items-center gap-2 whitespace-nowrap rounded-full bg-surface-light px-4 py-2 text-sm font-bold text-text-main-light opacity-0 shadow-lg transition-all hover:bg-gray-100 group-hover:translate-y-0 group-hover:opacity-100 dark:bg-[#3a3b3c] dark:text-white dark:hover:bg-[#4e4f50]">
+                                    <span class="material-symbols-outlined text-[18px]">chat</span>
+                                    Message
+                                </button>
+                            </div>
+                            <div class="flex flex-col gap-1 p-3">
+                                <div class="flex items-baseline justify-between">
+                                    <span
+                                        class="text-lg font-bold text-text-main-light dark:text-text-main-dark">$35</span>
+                                </div>
+                                <h3
+                                    class="line-clamp-2 text-[15px] font-medium leading-snug text-text-main-light dark:text-text-main-dark">
+                                    Levi's Denim Jacket - Size M</h3>
+                                <div
+                                    class="mt-1 flex items-center justify-between text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                                    <span>Hoboken, NJ</span>
+                                    <span>5h ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item Card 8 -->
+                        <div
+                            class="group relative flex cursor-pointer flex-col rounded-xl bg-surface-light shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:bg-surface-dark">
+                            <div class="relative aspect-square w-full overflow-hidden rounded-t-xl">
+                                <div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                    data-alt="Modern coffee table with books"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBmpkLqgjjkXwq0HHw2GIwidyFSM6iK-hV8-zJIJ4jNt-lG14mGykVgJvbzBXzQtjgoiMLfjod_n-kjAgGsLAXkJcOgiqrTPAPQBpqCxLdH4Gv02ds2U3BEpd_QNjb-quQuezKYCCwJSmPkshRxRqoWQCZzzxzDw5NiS84tODo2X5uOpP1Ntsp6Jz-MEvf9jw498N-lXKHh5YJ5xdhzaeLvNtrg9i6x4VQIiAbhwNwhLgpKbFcTzRn6GxdHtEtjM8jt90DFaBqEmWA");'>
+                                </div>
+                                <div
+                                    class="absolute right-2 top-2 rounded-full bg-black/40 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-black/60">
+                                    <span class="material-symbols-outlined text-[20px]">favorite</span>
+                                </div>
+                                <button
+                                    class="absolute bottom-3 left-1/2 flex -translate-x-1/2 translate-y-12 items-center gap-2 whitespace-nowrap rounded-full bg-surface-light px-4 py-2 text-sm font-bold text-text-main-light opacity-0 shadow-lg transition-all hover:bg-gray-100 group-hover:translate-y-0 group-hover:opacity-100 dark:bg-[#3a3b3c] dark:text-white dark:hover:bg-[#4e4f50]">
+                                    <span class="material-symbols-outlined text-[18px]">chat</span>
+                                    Message
+                                </button>
+                            </div>
+                            <div class="flex flex-col gap-1 p-3">
+                                <div class="flex items-baseline justify-between">
+                                    <span
+                                        class="text-lg font-bold text-text-main-light dark:text-text-main-dark">$80</span>
+                                </div>
+                                <h3
+                                    class="line-clamp-2 text-[15px] font-medium leading-snug text-text-main-light dark:text-text-main-dark">
+                                    Glass Top Coffee Table</h3>
+                                <div
+                                    class="mt-1 flex items-center justify-between text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                                    <span>Brooklyn, NY</span>
+                                    <span>2d ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-12 flex flex-col items-center justify-center gap-4 py-8">
+                    <div
+                        class="flex h-16 w-16 items-center justify-center rounded-full bg-background-light dark:bg-[#3a3b3c]">
+                        <span
+                            class="material-symbols-outlined text-4xl text-text-secondary-light dark:text-text-secondary-dark">check_circle</span>
+                    </div>
+                    <p class="text-lg font-medium text-text-main-light dark:text-text-main-dark">You've reached the end
+                        of the list</p>
+                    <button class="text-primary hover:underline">View more categories</button>
+                </div>
+            </main>
+        </div>
+        <!-- Floating Chat FAB -->
+        <button
+            class="fixed bottom-6 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-xl transition-transform hover:scale-105 active:scale-95">
+            <span class="material-symbols-outlined text-[28px]">edit_square</span>
+        </button>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Group Management - Social App</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS with Config -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1876f2",
+                        "background-light": "#f0f2f5",
+                        "background-dark": "#18191a",
+                        "card-light": "#ffffff",
+                        "card-dark": "#242526",
+                        "text-main-light": "#050505",
+                        "text-main-dark": "#e4e6eb",
+                        "text-secondary-light": "#65676b",
+                        "text-secondary-dark": "#b0b3b8",
+                        "border-light": "#ced0d4",
+                        "border-dark": "#3e4042",
+                        "hover-light": "#e4e6eb",
+                        "hover-dark": "#3a3b3c",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Custom scrollbar for sidebar */
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background-color: #bcc0c4;
+            border-radius: 4px;
+        }
+
+        .sidebar-scroll:hover::-webkit-scrollbar-thumb {
+            background-color: #8d949e;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-text-main-light dark:text-text-main-dark overflow-y-scroll">
+    <!-- Top Navigation Bar -->
+    <nav
+        class="sticky top-0 z-50 flex h-14 w-full items-center justify-between bg-card-light dark:bg-card-dark px-4 shadow-sm border-b border-gray-200 dark:border-border-dark">
+        <!-- Left: Logo & Search -->
+        <div class="flex items-center gap-4">
+            <a class="flex items-center gap-2" href="index.html">
+                <div class="flex size-10 items-center justify-center rounded-full bg-primary text-white">
+                    <span class="material-symbols-outlined text-3xl">groups</span>
+                </div>
+            </a>
+            <div class="hidden md:flex h-10 w-64 items-center rounded-full bg-background-light dark:bg-hover-dark px-3">
+                <span
+                    class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark">search</span>
+                <input
+                    class="ml-2 w-full bg-transparent border-none text-sm text-text-main-light dark:text-text-main-dark placeholder-text-secondary-light focus:ring-0"
+                    placeholder="Search Facebook" type="text" />
+            </div>
+        </div>
+        <!-- Center: Navigation Icons -->
+        <div class="hidden lg:flex h-full items-center gap-1">
+            <a class="flex h-full w-28 items-center justify-center border-b-[3px] border-transparent hover:bg-background-light dark:hover:bg-hover-dark rounded-lg"
+                href="index.html">
+                <span
+                    class="material-symbols-outlined text-2xl text-text-secondary-light dark:text-text-secondary-dark">home</span>
+            </a>
+            <a class="flex h-full w-28 items-center justify-center border-b-[3px] border-primary text-primary"
+                href="groups.html">
+                <span class="material-symbols-outlined text-2xl"
+                    style="font-variation-settings: 'FILL' 1;">groups</span>
+            </a>
+            <a class="flex h-full w-28 items-center justify-center border-b-[3px] border-transparent hover:bg-background-light dark:hover:bg-hover-dark rounded-lg"
+                href="marketplace.html">
+                <span
+                    class="material-symbols-outlined text-2xl text-text-secondary-light dark:text-text-secondary-dark">storefront</span>
+            </a>
+            <a class="flex h-full w-28 items-center justify-center border-b-[3px] border-transparent hover:bg-background-light dark:hover:bg-hover-dark rounded-lg"
+                href="#">
+                <span
+                    class="material-symbols-outlined text-2xl text-text-secondary-light dark:text-text-secondary-dark">stadia_controller</span>
+            </a>
+        </div>
+        <!-- Right: Profile & Actions -->
+        <div class="flex items-center gap-2">
+            <button
+                class="flex size-10 items-center justify-center rounded-full bg-background-light dark:bg-hover-dark hover:brightness-95">
+                <span class="material-symbols-outlined text-black dark:text-white">apps</span>
+            </button>
+            <button
+                class="flex size-10 items-center justify-center rounded-full bg-background-light dark:bg-hover-dark hover:brightness-95">
+                <span class="material-symbols-outlined text-black dark:text-white">notifications</span>
+            </button>
+            <div class="size-10 rounded-full bg-gray-300 bg-cover bg-center cursor-pointer"
+                data-alt="User profile picture"
+                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDU45XD8vjIDnaasZluycitE5yxUOFKjU_9ugxwHcdgBLangjhsUkcgprwn8DV3QvXPigaTaZrlG9AjRCsSyDNRPnJzrqc-IK1uLziBnZ7X7GkE9cRoatHzRBhOYHqFoAd53jGtIeKHbkwlSKPGAwbOld9xfxEZU7AWK01lY9QPl0ooDrcgDkvLNrxbWRZCP4ARlJP0VnrqQZplq2uw7VVAsXF-VPtn1DTZzEA-ewjqpGM97YeKaIt9siWZ2J4wEl-1igeDw7-Z5TU');">
+            </div>
+        </div>
+    </nav>
+    <!-- Main Layout Container -->
+    <div class="flex min-h-[calc(100vh-56px)] justify-center bg-background-light dark:bg-background-dark">
+        <!-- Left Sidebar (Shortcuts) -->
+        <aside
+            class="hidden xl:flex sticky top-14 h-[calc(100vh-56px)] w-[360px] flex-col overflow-y-auto p-4 sidebar-scroll shrink-0">
+            <div class="mb-4">
+                <a class="flex items-center gap-3 rounded-lg p-2 hover:bg-hover-light dark:hover:bg-hover-dark transition-colors"
+                    href="profile.html">
+                    <div class="size-9 rounded-full bg-gray-300 bg-cover bg-center" data-alt="User avatar small"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDeGdnsiKDPVOYeOqPbiKjulT_vtTEh-yX_js3GRtyrnyPF3bFdLZUuMxaxmQ_2cL15Evw1AgnJeE7-E7a8raxF_T_lMvfbIgNxQlqWoR763D8_sG0h3zHXrfkpAZ2SAo82Gwlzi9K82iOkBe-QptVUl10HYUzXHq9lPTtOOwbSfRrVbW0fPxOTJWuMlLaV4hIc49WFlIGGNGlkM8LqdceEJESoKkXkfJfF5amRUuIgOGx0FLVVPoC21jpTmL6X60dAtuQ3uCLgr8M');">
+                    </div>
+                    <span class="font-semibold text-text-main-light dark:text-text-main-dark">John Doe</span>
+                </a>
+                <a class="flex items-center gap-3 rounded-lg p-2 hover:bg-hover-light dark:hover:bg-hover-dark transition-colors"
+                    href="index.html">
+                    <span class="material-symbols-outlined text-primary text-3xl">feed</span>
+                    <span class="font-medium text-text-main-light dark:text-text-main-dark">Feed</span>
+                </a>
+                <a class="flex items-center gap-3 rounded-lg p-2 hover:bg-hover-light dark:hover:bg-hover-dark transition-colors"
+                    href="friends.html">
+                    <span class="material-symbols-outlined text-primary text-3xl">group</span>
+                    <span class="font-medium text-text-main-light dark:text-text-main-dark">Friends</span>
+                </a>
+            </div>
+            <hr class="border-border-light dark:border-border-dark my-2" />
+            <div class="mt-2">
+                <div class="flex justify-between items-center px-2 mb-2">
+                    <h3 class="font-semibold text-text-secondary-light dark:text-text-secondary-dark">Your Shortcuts
+                    </h3>
+                    <a class="text-primary text-sm hover:underline" href="#">Edit</a>
+                </div>
+                <a class="flex items-center gap-3 rounded-lg p-2 hover:bg-hover-light dark:hover:bg-hover-dark transition-colors"
+                    href="#">
+                    <div class="size-9 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600">
+                        <span class="material-symbols-outlined">design_services</span>
+                    </div>
+                    <span class="font-medium text-text-main-light dark:text-text-main-dark">UX/UI Designers
+                        Community</span>
+                </a>
+                <a class="flex items-center gap-3 rounded-lg p-2 hover:bg-hover-light dark:hover:bg-hover-dark transition-colors"
+                    href="#">
+                    <div class="size-9 rounded-lg bg-green-100 flex items-center justify-center text-green-600">
+                        <span class="material-symbols-outlined">code</span>
+                    </div>
+                    <span class="font-medium text-text-main-light dark:text-text-main-dark">Web Developers Hub</span>
+                </a>
+                <a class="flex items-center gap-3 rounded-lg p-2 hover:bg-hover-light dark:hover:bg-hover-dark transition-colors"
+                    href="#">
+                    <div class="size-9 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600">
+                        <span class="material-symbols-outlined">videogame_asset</span>
+                    </div>
+                    <span class="font-medium text-text-main-light dark:text-text-main-dark">Indie Game Devs</span>
+                </a>
+            </div>
+        </aside>
+        <!-- Center Column (Feed) -->
+        <main class="w-full max-w-[980px] px-0 lg:px-8 pb-10">
+            <!-- Group Header Card -->
+            <div class="bg-card-light dark:bg-card-dark rounded-none lg:rounded-b-lg shadow-sm mb-4">
+                <!-- Cover Photo -->
+                <div
+                    class="relative h-[250px] md:h-[350px] w-full bg-gray-200 lg:rounded-b-lg overflow-hidden group cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="h-full w-full bg-cover bg-center"
+                        data-alt="Abstract blue geometric pattern for group cover"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDcnJYk0hIwz49LyeYFkNSp34_2CkUG60tMXWpsuewY-7h0H23MFA6GfeJ0B8OER3BbJxXJyrBqUZsLrToX4bPXgCOd1PWO011IYdXq-JzAQxjL8q6qaLU_M-VQ5x4JFQroRER5h1pGNUW3gT5s4_DQGuWPpTeHZRm_lrlGbZQrWOHyei9_0aX-UdPtSyYo-4b51a-lQdJyHUSaEp3jppFwQEJ3NZNKRYLO8L7bYlTMpRwMDWupBXhjD219xDmpG4_sFfL6ZGqj_To');">
+                    </div>
+                    <button
+                        class="absolute bottom-4 right-4 flex items-center gap-2 bg-white text-black px-3 py-1.5 rounded-lg font-semibold text-sm hover:bg-gray-100 shadow-md">
+                        <span class="material-symbols-outlined text-lg">camera_alt</span>
+                        Edit Cover Photo
+                    </button>
+                </div>
+                <!-- Group Info Section -->
+                <div class="px-4 md:px-8 pb-4">
+                    <div
+                        class="flex flex-col md:flex-row gap-4 items-start md:items-end -mt-4 md:-mt-8 relative z-10 mb-4">
+                        <!-- Group Icon/Main Image -->
+                        <div
+                            class="size-24 md:size-32 rounded-xl border-4 border-card-light dark:border-card-dark bg-primary flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
+                            <span
+                                class="material-symbols-outlined text-white text-5xl md:text-6xl">design_services</span>
+                        </div>
+                        <div class="flex-1 w-full">
+                            <h1
+                                class="text-2xl md:text-3xl font-bold text-text-main-light dark:text-text-main-dark mb-1">
+                                UX/UI Designers Community</h1>
+                            <div
+                                class="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 text-text-secondary-light dark:text-text-secondary-dark text-sm md:text-base font-medium">
+                                <span class="flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-lg">public</span> Public group</span>
+                                <span class="hidden md:inline">•</span>
+                                <span>12.5k members</span>
+                            </div>
+                            <!-- Avatars pile -->
+                            <div class="flex items-center mt-3">
+                                <div class="flex -space-x-2">
+                                    <div class="size-8 rounded-full border-2 border-white dark:border-card-dark bg-gray-300 bg-cover"
+                                        data-alt="Member avatar 1"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC2I5z0Q8VOTBHbgacaJ-JZM0EZLryk4-iqVS1NzzZE5RBQQQeedq-j-EVVJj2ymnJJix0H66LCDvlIUKfEo6c8XjrZm49h92ZJZwYxnHPYe_W8e5i1XXlPHJWQA3puwD6izrgYHceo3aCMtTWDFyAVtNkMV4D2hFjyG-cJrnunNnj93uAg41LCgt_gQESyJx577pp-T8pugJAyEcs-VIxB0b8bWUFmv6yS_g-M52XM2aiX5mrjwW4cJJFIn1a3xUOsBskMFXQj2NM');">
+                                    </div>
+                                    <div class="size-8 rounded-full border-2 border-white dark:border-card-dark bg-gray-300 bg-cover"
+                                        data-alt="Member avatar 2"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDRi3Rexod6XqcpO3AtFO8U4bwt4C9bknXSfbU0JG095X5Hs0U540pbniuKQ6K17DbBEFLGRJfAc4jvgpdcqqpg5IkUJ6tHr0pHkXsOAZYkqR3xqJ8v4ljtCXWmZXo8yg8iGF_0bnZBT7vW0qIUEvzmqpMkdCl4a39Zwjoz2HlYISHbJHMm9bEKtFuSQ9WHUSpITE9izOGj5CADXoJsmB0-mMhYhDgJj_4eNKiL4WFX6zySjYqDlVhkA7dtScWumrEtg5V0hY4FgvA');">
+                                    </div>
+                                    <div class="size-8 rounded-full border-2 border-white dark:border-card-dark bg-gray-300 bg-cover"
+                                        data-alt="Member avatar 3"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB4aZSlcG5wmtqdNp4qFALL_pXG2HrBzZdXMWcQG6y71owhfppfgShQEBUpBD1HOZ-woVbeF5CB9zT_dZkX6S7F_zCpoMti4Kvp0SkJJLogn_a4k2a5mDHfbdjd58f2TsqVo83WLHQ97TZrAkJqrDZL3Zu7n1F57m7-Py8woSQDDiqrs4KE1GSklT1Nvp38jjVyyItOlvEPpfSEMKSi439NJLQnS4gYQK9WvAAXhz1a6ERGfcVDboMzjpcY8K317Z1djaBfNUfkkKo');">
+                                    </div>
+                                    <div
+                                        class="size-8 rounded-full border-2 border-white dark:border-card-dark bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600">
+                                        +9</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Header Actions -->
+                        <div class="flex gap-2 w-full md:w-auto mt-2 md:mt-0">
+                            <button
+                                class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-primary text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors">
+                                <span class="material-symbols-outlined text-xl">add</span>
+                                Invite
+                            </button>
+                            <button
+                                class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-hover-light dark:bg-hover-dark text-text-main-light dark:text-text-main-dark px-4 py-2 rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                                <span class="material-symbols-outlined text-xl">check</span>
+                                Joined
+                            </button>
+                            <button
+                                class="flex items-center justify-center bg-hover-light dark:bg-hover-dark text-text-main-light dark:text-text-main-dark w-10 py-2 rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                                <span class="material-symbols-outlined">more_horiz</span>
+                            </button>
+                        </div>
+                    </div>
+                    <hr class="border-border-light dark:border-border-dark mb-1" />
+                    <!-- Navigation Tabs -->
+                    <div class="flex gap-1 overflow-x-auto no-scrollbar">
+                        <button
+                            class="px-4 py-3 text-primary border-b-[3px] border-primary font-semibold text-sm md:text-base whitespace-nowrap">Discussion</button>
+                        <button
+                            class="px-4 py-3 text-text-secondary-light dark:text-text-secondary-dark hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg font-semibold text-sm md:text-base whitespace-nowrap border-b-[3px] border-transparent transition-colors">Featured</button>
+                        <button
+                            class="px-4 py-3 text-text-secondary-light dark:text-text-secondary-dark hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg font-semibold text-sm md:text-base whitespace-nowrap border-b-[3px] border-transparent transition-colors">Members</button>
+                        <button
+                            class="px-4 py-3 text-text-secondary-light dark:text-text-secondary-dark hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg font-semibold text-sm md:text-base whitespace-nowrap border-b-[3px] border-transparent transition-colors">Events</button>
+                        <button
+                            class="px-4 py-3 text-text-secondary-light dark:text-text-secondary-dark hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg font-semibold text-sm md:text-base whitespace-nowrap border-b-[3px] border-transparent transition-colors">Media</button>
+                        <button
+                            class="px-4 py-3 text-text-secondary-light dark:text-text-secondary-dark hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg font-semibold text-sm md:text-base whitespace-nowrap border-b-[3px] border-transparent transition-colors">Files</button>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-4">
+                <!-- Main Feed Area -->
+                <div class="flex flex-col gap-4">
+                    <!-- Create Post Widget -->
+                    <div class="bg-card-light dark:bg-card-dark rounded-lg shadow-sm p-4">
+                        <div class="flex gap-3 mb-3">
+                            <div class="size-10 rounded-full bg-gray-300 bg-cover bg-center shrink-0"
+                                data-alt="Current user avatar"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDaIM5r0kSEtOZsGNWu1_-NXBg8CrOu6Ix5wwG20J6rAw0IyZHGaTNMJO4z0cwaMh6XW6wmO1UK-cDLukqoqyjhUxTfQTZX3sp6Lls-lUduHh_bfaLTGWQlELBVehxFNK1vJCNp9E1frRgtDh2UbwIIulXZniY-nYFUptvOP65fAcWZfFNd83sBxKBqPoSNj06nIfMB-nDwKTHQLKejDcGAYT1mEJAd78jyCb7KfHsmPSEWIJo4mqUDRXcvz3135iocEIg_xehmRbo');">
+                            </div>
+                            <div
+                                class="flex-1 bg-background-light dark:bg-hover-dark rounded-full px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer transition-colors flex items-center">
+                                <span class="text-text-secondary-light dark:text-text-secondary-dark text-base">Write
+                                    something...</span>
+                            </div>
+                        </div>
+                        <hr class="border-border-light dark:border-border-dark mb-2" />
+                        <div class="flex justify-between md:px-4">
+                            <button
+                                class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg transition-colors">
+                                <span class="material-symbols-outlined text-rose-500 text-2xl"
+                                    style="font-variation-settings: 'FILL' 1;">video_camera_front</span>
+                                <span
+                                    class="text-text-secondary-light dark:text-text-secondary-dark font-semibold text-sm md:text-base">Live
+                                    video</span>
+                            </button>
+                            <button
+                                class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg transition-colors">
+                                <span class="material-symbols-outlined text-green-500 text-2xl"
+                                    style="font-variation-settings: 'FILL' 1;">photo_library</span>
+                                <span
+                                    class="text-text-secondary-light dark:text-text-secondary-dark font-semibold text-sm md:text-base">Photo/video</span>
+                            </button>
+                            <button
+                                class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg transition-colors">
+                                <span class="material-symbols-outlined text-blue-400 text-2xl"
+                                    style="font-variation-settings: 'FILL' 1;">poll</span>
+                                <span
+                                    class="text-text-secondary-light dark:text-text-secondary-dark font-semibold text-sm md:text-base">Poll</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Pinned Post -->
+                    <div class="bg-card-light dark:bg-card-dark rounded-lg shadow-sm p-4">
+                        <div class="flex gap-2 mb-2">
+                            <span
+                                class="text-xs font-semibold text-text-secondary-light dark:text-text-secondary-dark uppercase tracking-wide flex items-center gap-1">
+                                <span class="material-symbols-outlined text-sm text-primary"
+                                    style="font-variation-settings: 'FILL' 1;">push_pin</span>
+                                Pinned by Admin
+                            </span>
+                        </div>
+                        <div class="flex gap-3 mb-3">
+                            <div class="size-10 rounded-full bg-cover bg-center shrink-0" data-alt="Admin avatar"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCmtpCoD5qJalwTNo3VTyfodyMpVhIYa4pxvtTxLtClF3RMciwWckzROVDJU3SZ7iJhhXbeWsI6ckTPkncKFRWiwo7sxjvLU3oe3Z6r4BbzB_elEAbZEl-SZAstozPcipchTZoD9Z1ULbgjvrfEv6VL71bojqy9vBEldGorzEAoAlEPp5yGSdsH4-jTmTPNdnj6GIBb5oEyYDMz-xEGjvx2axPNAnGhdg7YT6-3IWix67PyWVV1gw9y5z9ldGp6rwK4PjYikqUDviQ');">
+                            </div>
+                            <div>
+                                <h4
+                                    class="font-bold text-text-main-light dark:text-text-main-dark text-sm leading-tight hover:underline cursor-pointer">
+                                    Sarah Admin</h4>
+                                <div
+                                    class="flex items-center gap-1 text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                                    <span>Admin</span>
+                                    <span>•</span>
+                                    <span>2 days ago</span>
+                                </div>
+                            </div>
+                            <button
+                                class="ml-auto text-text-secondary-light dark:text-text-secondary-dark hover:bg-hover-light dark:hover:bg-hover-dark rounded-full size-8 flex items-center justify-center">
+                                <span class="material-symbols-outlined">more_horiz</span>
+                            </button>
+                        </div>
+                        <div class="text-text-main-light dark:text-text-main-dark mb-4">
+                            <p>Welcome to the UX/UI Designers Community! 🎨✨</p>
+                            <p class="mt-2">Please read the group rules before posting. We are here to share feedback,
+                                resources, and job opportunities. No spamming allowed.</p>
+                        </div>
+                        <!-- Interaction Stats -->
+                        <div
+                            class="flex justify-between items-center py-2 border-b border-border-light dark:border-border-dark text-text-secondary-light dark:text-text-secondary-dark text-sm">
+                            <div class="flex items-center gap-1">
+                                <div class="flex -space-x-1">
+                                    <div class="size-4 bg-primary rounded-full flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-white text-[10px]">thumb_up</span>
+                                    </div>
+                                    <div class="size-4 bg-red-500 rounded-full flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-white text-[10px]">favorite</span>
+                                    </div>
+                                </div>
+                                <span>245</span>
+                            </div>
+                            <div class="flex gap-3">
+                                <span>42 comments</span>
+                                <span>5 shares</span>
+                            </div>
+                        </div>
+                        <!-- Interaction Buttons -->
+                        <div class="flex justify-between pt-1">
+                            <button
+                                class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg transition-colors text-text-secondary-light dark:text-text-secondary-dark font-medium">
+                                <span class="material-symbols-outlined text-xl">thumb_up</span> Like
+                            </button>
+                            <button
+                                class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg transition-colors text-text-secondary-light dark:text-text-secondary-dark font-medium">
+                                <span class="material-symbols-outlined text-xl">chat_bubble</span> Comment
+                            </button>
+                            <button
+                                class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg transition-colors text-text-secondary-light dark:text-text-secondary-dark font-medium">
+                                <span class="material-symbols-outlined text-xl">share</span> Share
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Regular Post -->
+                    <div class="bg-card-light dark:bg-card-dark rounded-lg shadow-sm p-4">
+                        <div class="flex gap-3 mb-3">
+                            <div class="size-10 rounded-full bg-cover bg-center shrink-0" data-alt="User avatar"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCdQhbBwFcOXldSs8IpM4OeLXVClpKFyPry-ZG41JD_D8-CecJ12PQIO5-2-bXf_P1LIYThU3aR_fU52ytD_T7YkjLrWIl1QHWK9T39yB-RuHPxZd4EEMsBvkFDzwW5pIeKL4HuuJLbmIN1_xBod8PzuxciFZUQXaC34KPIyjFW8wX25AWS5XVhn3ya6CtczY50SRg0WEOl4HuA9gDXtP5FKbYwel1vaApQ9rkePqCJzcTLfRTMtlrw5B4o_BBBJ6xN_8MRWNWOlUk');">
+                            </div>
+                            <div>
+                                <h4
+                                    class="font-bold text-text-main-light dark:text-text-main-dark text-sm leading-tight hover:underline cursor-pointer">
+                                    Michael Designer</h4>
+                                <div
+                                    class="flex items-center gap-1 text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                                    <span>5 hours ago</span>
+                                    <span>•</span>
+                                    <span class="material-symbols-outlined text-xs">public</span>
+                                </div>
+                            </div>
+                            <button
+                                class="ml-auto text-text-secondary-light dark:text-text-secondary-dark hover:bg-hover-light dark:hover:bg-hover-dark rounded-full size-8 flex items-center justify-center">
+                                <span class="material-symbols-outlined">more_horiz</span>
+                            </button>
+                        </div>
+                        <div class="text-text-main-light dark:text-text-main-dark mb-3">
+                            <p>Just finished a new concept for a finance dashboard. Would love some feedback on the
+                                color palette! Is the blue too saturated?</p>
+                        </div>
+                        <div
+                            class="w-full h-80 bg-gray-100 rounded-lg mb-3 overflow-hidden border border-border-light dark:border-border-dark">
+                            <div class="w-full h-full bg-cover bg-center"
+                                data-alt="Screenshot of a finance dashboard UI design"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuApZt7CkP5BinRSCtmpXZBhuAbFBDWNvol3BIAJKK2aIsThgqqtDV8zCTSOXNq3igFmubx71vypHAjrm8aycQ-4CwA-UO4fRpg_JrGYRD7nfi5qyLF-Anrkymunk1YMwe8kKHu3942igBpB9s58YQE5CteVDsQViKSHt_es-KXyA4U3FWFEteYadiRG2du6qKfmD36ayrYTtTvFMCn4dk1SCSfOY-WVLnpU-wWKr2JSSwjLmZaYxh57Gx--xKO80gdBpsEMNTVjVA0');">
+                            </div>
+                        </div>
+                        <!-- Interaction Stats -->
+                        <div
+                            class="flex justify-between items-center py-2 border-b border-border-light dark:border-border-dark text-text-secondary-light dark:text-text-secondary-dark text-sm">
+                            <div class="flex items-center gap-1">
+                                <div class="size-4 bg-primary rounded-full flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-white text-[10px]">thumb_up</span>
+                                </div>
+                                <span>89</span>
+                            </div>
+                            <div class="flex gap-3">
+                                <span>12 comments</span>
+                            </div>
+                        </div>
+                        <!-- Interaction Buttons -->
+                        <div class="flex justify-between pt-1">
+                            <button
+                                class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg transition-colors text-primary font-medium">
+                                <span class="material-symbols-outlined text-xl"
+                                    style="font-variation-settings: 'FILL' 1;">thumb_up</span> Like
+                            </button>
+                            <button
+                                class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg transition-colors text-text-secondary-light dark:text-text-secondary-dark font-medium">
+                                <span class="material-symbols-outlined text-xl">chat_bubble</span> Comment
+                            </button>
+                            <button
+                                class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg transition-colors text-text-secondary-light dark:text-text-secondary-dark font-medium">
+                                <span class="material-symbols-outlined text-xl">share</span> Share
+                            </button>
+                        </div>
+                        <!-- Comment Section Preview -->
+                        <div class="mt-3 pt-2 flex gap-2">
+                            <div class="size-8 rounded-full bg-gray-300 bg-cover bg-center shrink-0"
+                                data-alt="Current user avatar small"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDybG9glGK5g34ew-ayEJKr0bXWYfTj0MOydxu3uFB2L0nUIhHPu1cfGofAPIzmpNJJRv4zqw14GCXhGMUhb1fZDGcFOW8crOV0MHgtEnh32P4NC8yZJFXwzFNy7lYRBEOZud7T8SyWM4whB2NIMfkXXFCRkFUY1t_bVKaqIDG3shIbusBjn8Kecj0m0gNiGZ9Wsk5-VHimQ6K69mDRGL7EAG7xSUoO-tqzuzsFLO1PzWTfVU9fu8tqc4Vl0Fop4ZUwlqj3WZiusqQ');">
+                            </div>
+                            <div class="flex-1 bg-background-light dark:bg-hover-dark rounded-2xl px-3 py-2">
+                                <input
+                                    class="bg-transparent border-none w-full text-sm focus:ring-0 p-0 text-text-main-light dark:text-text-main-dark"
+                                    placeholder="Write a comment..." type="text" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Sidebar (Group Details) -->
+                <div class="flex flex-col gap-4">
+                    <!-- About Card -->
+                    <div class="bg-card-light dark:bg-card-dark rounded-lg shadow-sm p-4">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold text-text-main-light dark:text-text-main-dark">About</h3>
+                        </div>
+                        <div class="text-sm text-text-main-light dark:text-text-main-dark mb-4">
+                            A community for UX/UI designers to share work, ask for feedback, and discuss industry
+                            trends.
+                        </div>
+                        <div class="flex flex-col gap-3">
+                            <div class="flex items-center gap-3">
+                                <span
+                                    class="material-symbols-outlined text-text-main-light dark:text-text-main-dark text-xl">public</span>
+                                <div>
+                                    <div class="font-semibold text-text-main-light dark:text-text-main-dark text-sm">
+                                        Public</div>
+                                    <div class="text-xs text-text-secondary-light dark:text-text-secondary-dark">Anyone
+                                        can see who's in the group and what they post.</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span
+                                    class="material-symbols-outlined text-text-main-light dark:text-text-main-dark text-xl">visibility</span>
+                                <div>
+                                    <div class="font-semibold text-text-main-light dark:text-text-main-dark text-sm">
+                                        Visible</div>
+                                    <div class="text-xs text-text-secondary-light dark:text-text-secondary-dark">Anyone
+                                        can find this group.</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span
+                                    class="material-symbols-outlined text-text-main-light dark:text-text-main-dark text-xl">history</span>
+                                <div>
+                                    <div class="font-semibold text-text-main-light dark:text-text-main-dark text-sm">
+                                        History</div>
+                                    <div class="text-xs text-text-secondary-light dark:text-text-secondary-dark">Group
+                                        created on September 12, 2021.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Admin Tools (Conditional View for Admins) -->
+                    <div class="bg-card-light dark:bg-card-dark rounded-lg shadow-sm p-4 border-l-4 border-primary">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold text-text-main-light dark:text-text-main-dark">Admin Tools</h3>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <a class="flex justify-between items-center p-2 hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg transition-colors"
+                                href="#">
+                                <div class="flex items-center gap-2">
+                                    <span
+                                        class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark">pending_actions</span>
+                                    <span
+                                        class="text-sm font-medium text-text-main-light dark:text-text-main-dark">Pending
+                                        Posts</span>
+                                </div>
+                                <span
+                                    class="bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">3</span>
+                            </a>
+                            <a class="flex justify-between items-center p-2 hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg transition-colors"
+                                href="#">
+                                <div class="flex items-center gap-2">
+                                    <span
+                                        class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark">person_add</span>
+                                    <span
+                                        class="text-sm font-medium text-text-main-light dark:text-text-main-dark">Member
+                                        Requests</span>
+                                </div>
+                                <span
+                                    class="bg-gray-200 dark:bg-gray-600 text-text-main-light dark:text-text-main-dark text-xs font-bold px-1.5 py-0.5 rounded-full">12</span>
+                            </a>
+                            <a class="flex justify-between items-center p-2 hover:bg-hover-light dark:hover:bg-hover-dark rounded-lg transition-colors"
+                                href="#">
+                                <div class="flex items-center gap-2">
+                                    <span
+                                        class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark">settings</span>
+                                    <span
+                                        class="text-sm font-medium text-text-main-light dark:text-text-main-dark">Group
+                                        Settings</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Members Preview -->
+                    <div class="bg-card-light dark:bg-card-dark rounded-lg shadow-sm p-4">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold text-text-main-light dark:text-text-main-dark">Members · <span
+                                    class="text-text-secondary-light font-normal">12,542</span></h3>
+                            <a class="text-primary text-sm hover:underline" href="#">See all</a>
+                        </div>
+                        <div class="grid grid-cols-4 gap-2">
+                            <div class="aspect-square rounded-lg bg-gray-200 bg-cover bg-center" data-alt="Member 1"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCeqMz6tKy41zqKw6z3AgYkkYsn2CNx6ksvxWSkxtJMbTODU6tO0FWg36xqYeIjyf1REbKczsnjoYBVi44hZKa--jDrFr2m_i-4y6RWOR5k9IqU4j4bJbhI4dI9YLvrhu39wBAYYUenx_1pS0OU3gtQSrfQnWgtdj4ykWY8GYqGTHIvvLkoizMnh5f3vZrzXB0uuiiS1ioLcnlQp7VsA56fymP79O2RGZD9hKBUzPPRn4tyJKW4GyRJgBXgZxW5LXKpl1G1LU4KfkU');">
+                            </div>
+                            <div class="aspect-square rounded-lg bg-gray-200 bg-cover bg-center" data-alt="Member 2"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAK30y0oX8hOmgn8sv9Oh6QlrQdXxFEPI0AjBWwbIsT7Gp1IOV5YK3Z-UYOACaWw3H__tTYWT_4z7xw_LaaFqLENky2MqfUla10zrBs8I15txnzU5g7ZlfGjIHwFOfHQHKo8Pj2R7IzV1ixogonP0yYEQLF-3uI767QMAG36O5L5DS5owzMI5yaXkfoS6cjQ3FbVzaz_ga1xEr0FtFnXz6su6dQl-nYc5Z3jlO2jb3EoI37rozl5sVHRTMr_pzn1nyIYREARZpoeaQ');">
+                            </div>
+                            <div class="aspect-square rounded-lg bg-gray-200 bg-cover bg-center" data-alt="Member 3"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZJ-oSbU6tPY0QW-I3QJQHq58f210aHsm_pWAxn6mnBTg6-IIyPI-mWQQ5dALC6S7AyqDm052_xZMv5JOJBg4L3DzzebuB8s9QApdGjerI2x4PvvvVOOQ6TVWke9JX7kZW451Pnez4pTH8l_rzHsR1xXhah4x9ssHJ8QS1SJ5wl8ZYhJ08XotF0tzbcs7LU0xGrRBlcesBnTBhNtma9w_jHdPOu-WNUn9ej1fZ3HoWI7JLslUI5aCcFSxJPBQDFbcx_l1MY09LrNI');">
+                            </div>
+                            <div class="aspect-square rounded-lg bg-gray-200 bg-cover bg-center" data-alt="Member 4"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDtYMkee5m1aWMdQvTokNYxYui1sRqpgKcY4jGaBG9XfJnXMEi18TXadSueLqXjxtfjZ1FME7qOxuRVV2UU27xkMjA5ckQMLzP0fyqLhuRLJssOuNJ2jO63O5Tt1eQ_n_ENyAtctTzKUgq1UFT7TmQ9PoXYHO9mVgBD02AJeHStUuVrS1KEiXAVFxIb1sWJUBQv0dIcO5VJjddQrvqp8AgY-jwHk1aMXoZQOqgnFrwPVhYolqkxHp9GaACEmGDKu7igcxN19q5oTxs');">
+                            </div>
+                            <div class="aspect-square rounded-lg bg-gray-200 bg-cover bg-center" data-alt="Member 5"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB8c_87ypAd1Ja0AWgdKj_ln361Y1HflCvYQsZMC3Ylq_gkL25KWyrfSUOYQa8X2T8K3yzZHGv8QrpGxiakYk98dzoj0G6BNHj4WpbaCTlo4LFK0-cs6JZDTdVO-l2WxEe5gxMtqw7tHRNmGChywp5Egbm69HPqGJB9S7Rp_YeDInFvvDyoKZldDybEgK-NutvZeaM9blKA4SSnEUpfLDge-idlHyYxduZFf9honUlHp1TkApHc6kGT8vVnD9WjbFAj3pvmPieoWnQ');">
+                            </div>
+                            <div class="aspect-square rounded-lg bg-gray-200 bg-cover bg-center" data-alt="Member 6"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDv2_PND36sBPeDXZOGPnrJoE3-gI0ag62JNnLkGiR92vM-vzcOBM56yB-6X9h8Gi_oE7fa4-n_MC6j6xwDlfshZaEyfuqexA2xEaGPO3OQwauNOBu_3-mR5W-IPO2R0jCD4dB-LgouOpmWVYrU-8WJLSBgW1BM52widH7LXJTDMq0k3x6SrZzYz3vEP3Zfag_5sp2ebzQMeryxd1QH1iT7nguugrfXTSMdLU_wCOaoYA1HfiJhCz7ftpm2vgv89N2GzXBiWqi9gDg');">
+                            </div>
+                            <div class="aspect-square rounded-lg bg-gray-200 bg-cover bg-center" data-alt="Member 7"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD_zOLPLrT-ESoA3ZMb2yPb6tR-jPGMuy3nbTBqf6facRvB5yLl_r4TlXTCZS_88k5craEpQResmoz4SZt_bqBo2Lntufo6-lm_rhTtK4svOq7oh7v3WUDWg15SFj4RwKkTBduQbMJWY9ouv0STQWbQpNI5NW2-Jpp96sHoPP6fPK3ElN6SZqnNDrz5KDUEd7pZL89Lqlk-VlI32N_RyuCxxOtI8UMDE21O4_D__VQjghrqK2ai1-VEEd-4NLLAUEq_Xm_5UciHf_g');">
+                            </div>
+                            <div class="aspect-square rounded-lg bg-gray-200 bg-cover bg-center" data-alt="Member 8"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCG0SlEKufKhML3wJLXtGjsW541XDvUCy3n6E6TiMGw5owwNFl5_ULhFgKBbvXIGzO43-yJZFO0M4M45PfqeOVfHb2fl4PxNiCrGuCf2l7nSrHHl1ZBlWxQV4sSWajXTimgbwbGAkGMfXjBt99X8bUHfujxoe8FFXcbLYU5dZ_SZmxlpcwt3ph6CMQNxRrZ_ygnkNN8k0o513YOCBUdaJkIxGULHdr4fx_zqMcXOJ9IhQ5gbiCtSX96ZwZh9kwegSRvEaiedBJCxNw');">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Right Sidebar (Filler/Ads/Contacts - Optional but good for balance) -->
+        <aside
+            class="hidden xl:flex sticky top-14 h-[calc(100vh-56px)] w-[360px] flex-col overflow-y-auto p-4 sidebar-scroll shrink-0">
+            <h3 class="font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-4">Sponsored</h3>
+            <a class="flex items-center gap-3 mb-4 group" href="#">
+                <div class="w-32 h-24 rounded-lg bg-gray-200 bg-cover bg-center shrink-0"
+                    data-alt="Sponsored ad image 1"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAFTEV2q_U0M5TT2GLqxPt4PB2iYqx6EBU5rtyAiIiyajLAhUbp5pL8t0nRGaACHwy_kQdte1Bs6Wyq1WKYR1m06_YToigiH9voTrqiQicjNt7X3xE2XOwIyRn8DRvIMRLjO_MTvmflzG3TtauA0OkST5igTM8wf_kX0uxNIguX5JXY8x5Rrrerx60gP6z1PAkMFrMrP0x3KW7-Y5Om3NBhfT0xRyvlkawscSP3S_T0XuI3k8FmDoNVIFViYN5S3TSSbxhDmIjkQgc');">
+                </div>
+                <div class="flex flex-col">
+                    <span
+                        class="font-semibold text-text-main-light dark:text-text-main-dark text-sm group-hover:underline">Master
+                        UI Design</span>
+                    <span class="text-xs text-text-secondary-light dark:text-text-secondary-dark">uicourse.com</span>
+                </div>
+            </a>
+            <a class="flex items-center gap-3 mb-6 group" href="#">
+                <div class="w-32 h-24 rounded-lg bg-gray-200 bg-cover bg-center shrink-0"
+                    data-alt="Sponsored ad image 2"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDEZ3GZpv3rtdjPZWoUpqUTezwcx69XhypT2Nsy1PwENprNHFNOy59vf7F_k5GxGOOZMv5sXCv_L-G75cihyCRy3Cc7GoQ5G9YR3tc7vca2_1una7d_uDGmq7Hv6CXPsUj5TedJlUW2Unl3nfIg7qP1NkoGyXGsH2s4KEMwTmwBGgEKTQSj9ogje21wcI28_DmLKQFDFrbH-rk-05m6Hd-eexJzPsdA8d8k9dMEsh-6BhdZYt9d7sWOuEtfCtMAU7coZ7rkDh5sGRw');">
+                </div>
+                <div class="flex flex-col">
+                    <span
+                        class="font-semibold text-text-main-light dark:text-text-main-dark text-sm group-hover:underline">Best
+                        Prototyping Tool</span>
+                    <span class="text-xs text-text-secondary-light dark:text-text-secondary-dark">proto.io</span>
+                </div>
+            </a>
+            <hr class="border-border-light dark:border-border-dark mb-4" />
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-semibold text-text-secondary-light dark:text-text-secondary-dark">Suggested Groups</h3>
+                <a class="text-primary text-sm hover:underline" href="#">See All</a>
+            </div>
+            <!-- Suggestion Card 1 -->
+            <div
+                class="bg-card-light dark:bg-card-dark rounded-lg border border-border-light dark:border-border-dark p-3 mb-3">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="size-12 rounded-lg bg-gray-300 bg-cover bg-center shrink-0"
+                        data-alt="Suggested group icon"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDItWo5sFdXYe0QWEdT6fUhUYjN1LmFYJ81WREsqdRvmdHko-lrefRrT5YJUBhPX0jkuau0jXRNISX0qF722TCwkIAWzNlpHTG5ImeveFRQGexpIBOhdeHJOf0ejg0fs69n-RGWmO8L4wL9tX-khKZUggqSXzo18e3kBznoejNduAx1qECy0VA503ACz_w-dQ3RoaJ77xr4r71DcQvSJb69lGN9kuY1PlVEq7TMqUv-h5oGJuXkAsLwa9SP8IpxLR3xz3FpeEPkWJQ');">
+                    </div>
+                    <div class="flex flex-col">
+                        <span
+                            class="font-bold text-text-main-light dark:text-text-main-dark text-sm leading-tight hover:underline cursor-pointer">Frontend
+                            Devs</span>
+                        <span class="text-xs text-text-secondary-light dark:text-text-secondary-dark">25k members • 5
+                            posts/day</span>
+                    </div>
+                </div>
+                <button
+                    class="w-full bg-background-light dark:bg-hover-dark hover:bg-gray-200 dark:hover:bg-gray-600 text-text-main-light dark:text-text-main-dark font-semibold text-sm py-2 rounded-lg transition-colors">
+                    Join Group
+                </button>
+            </div>
+            <!-- Suggestion Card 2 -->
+            <div
+                class="bg-card-light dark:bg-card-dark rounded-lg border border-border-light dark:border-border-dark p-3">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="size-12 rounded-lg bg-gray-300 bg-cover bg-center shrink-0"
+                        data-alt="Suggested group icon"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDgwXyTMtE83zbMqK0bI8469cwXQeY8QsPD3Vuexe8Ky4Z4IKDhZ7KuV0rn86bvxufXj-eHWcn1n7Ce_4yERMoIUuZjAVQ8mPXR02dEbaCNKySCaelgWHd1mpmUhvUN6PYyVchuis0Vr8pYD5lF5rx3Q4BpAXdP-v_KMfUyzqwTCTAXVycUnS5wOaiVNfh3P0ECuNfOcm9bnE5svB32Zci9ovXHyv0dM7hjuf_AKfLBjdeVVUgz7fluKSB7VtVfcTVQMiWPu6N4lak');">
+                    </div>
+                    <div class="flex flex-col">
+                        <span
+                            class="font-bold text-text-main-light dark:text-text-main-dark text-sm leading-tight hover:underline cursor-pointer">Product
+                            Management</span>
+                        <span class="text-xs text-text-secondary-light dark:text-text-secondary-dark">8k members • 2
+                            posts/day</span>
+                    </div>
+                </div>
+                <button
+                    class="w-full bg-background-light dark:bg-hover-dark hover:bg-gray-200 dark:hover:bg-gray-600 text-text-main-light dark:text-text-main-dark font-semibold text-sm py-2 rounded-lg transition-colors">
+                    Join Group
+                </button>
+            </div>
+        </aside>
+    </div>
+</body>
+
+</html>

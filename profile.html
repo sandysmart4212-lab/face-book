@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>User Profile - Facebook Clone</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1876f2",
+                        "background-light": "#f0f2f5",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #bcc0c4;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8e9297;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-[#1c1e21] dark:text-white antialiased overflow-y-scroll">
+    <!-- Top Navigation Bar -->
+    <nav
+        class="sticky top-0 z-50 flex items-center justify-between bg-white dark:bg-[#242526] px-4 py-2 shadow-sm border-b border-[#e5e7eb] dark:border-[#393a3b] h-14">
+        <!-- Left: Logo & Search -->
+        <div class="flex items-center gap-2 lg:gap-4">
+            <a class="flex-shrink-0" href="index.html">
+                <svg class="h-10 w-10 fill-primary" fill="currentColor" viewbox="0 0 36 36"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.181 35.87C29.094 34.791 36 27.202 36 18c0-9.941-8.059-18-18-18S0 8.059 0 18c0 8.442 5.811 15.526 13.652 17.471l-.003-12.305h-3.928v-5.166h3.928v-3.411c0-3.873 2.3-6.012 5.825-6.012 1.689 0 3.456.302 3.456.302v3.805h-1.947c-1.92 0-2.52.191-2.52 2.45v2.866h4.288l-.686 5.166h-3.602v12.704Z">
+                    </path>
+                </svg>
+            </a>
+            <div class="relative hidden lg:block">
+                <span
+                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#65676b]">search</span>
+                <input
+                    class="h-10 w-60 rounded-full bg-[#f0f2f5] dark:bg-[#3a3b3c] pl-10 pr-4 text-[15px] outline-none placeholder:text-[#65676b] focus:placeholder:text-[#909296] border-none focus:ring-0"
+                    placeholder="Search Facebook" type="text" />
+            </div>
+            <div
+                class="flex h-10 w-10 items-center justify-center rounded-full bg-[#f0f2f5] dark:bg-[#3a3b3c] lg:hidden">
+                <span class="material-symbols-outlined text-[#65676b]">search</span>
+            </div>
+        </div>
+        <!-- Center: Navigation Links -->
+        <div class="hidden flex-1 justify-center gap-2 md:flex">
+            <a class="group relative flex h-full w-28 items-center justify-center rounded-lg hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]"
+                href="index.html">
+                <span class="material-symbols-outlined text-[28px] text-[#65676b] group-hover:text-primary">home</span>
+            </a>
+            <a class="group relative flex h-full w-28 items-center justify-center rounded-lg hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]"
+                href="friends.html">
+                <span class="material-symbols-outlined text-[28px] text-[#65676b] group-hover:text-primary">group</span>
+            </a>
+            <a class="group relative flex h-full w-28 items-center justify-center rounded-lg hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]"
+                href="gallery.html">
+                <span
+                    class="material-symbols-outlined text-[28px] text-[#65676b] group-hover:text-primary">ondemand_video</span>
+            </a>
+            <a class="group relative flex h-full w-28 items-center justify-center rounded-lg hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]"
+                href="marketplace.html">
+                <span
+                    class="material-symbols-outlined text-[28px] text-[#65676b] group-hover:text-primary">storefront</span>
+            </a>
+            <a class="group relative flex h-full w-28 items-center justify-center rounded-lg hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]"
+                href="groups.html">
+                <span
+                    class="material-symbols-outlined text-[28px] text-[#65676b] group-hover:text-primary">groups</span>
+            </a>
+        </div>
+        <!-- Right: Actions & Profile -->
+        <div class="flex items-center gap-2 sm:gap-3">
+            <button
+                class="flex h-10 w-10 items-center justify-center rounded-full bg-[#f0f2f5] hover:bg-[#dbe0e6] dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50]">
+                <span class="material-symbols-outlined text-[20px] text-black dark:text-white">grid_view</span>
+            </button>
+            <button
+                class="flex h-10 w-10 items-center justify-center rounded-full bg-[#f0f2f5] hover:bg-[#dbe0e6] dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50]">
+                <span class="material-symbols-outlined text-[20px] text-black dark:text-white">chat</span>
+            </button>
+            <button
+                class="flex h-10 w-10 items-center justify-center rounded-full bg-[#f0f2f5] hover:bg-[#dbe0e6] dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50]">
+                <span class="material-symbols-outlined text-[20px] text-black dark:text-white">notifications</span>
+            </button>
+            <div
+                class="relative h-10 w-10 cursor-pointer overflow-hidden rounded-full border border-[#e5e7eb] dark:border-[#393a3b]">
+                <div class="h-full w-full bg-cover bg-center" data-alt="User profile picture"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDLborTXVne-bApELKXng6oUoIpnE37sqa-ZvEBcogcTBktED3wb0pOUvUj5Bc6fgMwJL2EEH_1wzhTjH2i8z0Wz5qrNNXA04Vh2kBsqNeq9d071iK3Go_hTAYBFXby-C4emXLwN4N9J0jL-T37K1ko6AlRGuz0EZJ5-bhX1gGFXVC9r6tPo4oG2WuI43FahYV0aBs4g6JGp2RT403rw7fSJPi7_wtIyOS8RDQxFf0Od2SN6g_S31fNiCfxTx_rQ1xZTQ6pAVp-smM');">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content Container -->
+    <div class="mx-auto flex w-full max-w-[1200px] flex-col px-0 sm:px-4 md:px-8">
+        <!-- Header Section -->
+        <header class="relative flex flex-col items-center bg-white dark:bg-[#242526] shadow-sm sm:rounded-b-xl">
+            <!-- Cover Photo -->
+            <div
+                class="relative h-48 w-full sm:h-80 lg:h-96 sm:rounded-b-xl overflow-hidden bg-gradient-to-r from-blue-400 to-indigo-500">
+                <img alt="Mountain landscape cover photo" class="h-full w-full object-cover"
+                    data-alt="Scenic mountain landscape at sunset"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzNLVgWNGFY9qiGUmD0bXsuv17modlBshokQB1S33Dcw3Q57wX__Ek_2BSR_lLftruBQYMzQthW6P24Rlk7qCq4OWFE4DCD9JymLHnDrHYPebNG-0kqCVF21u1VFCVIBGVeZSY8PA4ebNCWYD1d8mOc6JL3_WBfkfadkfRYrPVhD6AMNn1GXCQlHkEDcwuTdsJ3UQvZIc4-kd5RN5m6Bo8MPsFmREEgM004s8gqHpg5LtdQym7dDrcQWr7E_6ZdPQwVCZvGWB6eB0" />
+                <button
+                    class="absolute bottom-4 right-4 flex items-center gap-2 rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-black hover:bg-gray-100 shadow-sm">
+                    <span class="material-symbols-outlined text-[20px] fill-1">photo_camera</span>
+                    <span class="hidden sm:inline">Edit Cover Photo</span>
+                </button>
+            </div>
+            <!-- Profile Info Wrapper -->
+            <div class="flex w-full max-w-[1080px] flex-col items-center px-4 pb-4 sm:flex-row sm:items-end sm:px-8">
+                <!-- Avatar -->
+                <div class="relative -mt-20 sm:-mt-10 mb-3 sm:mb-0">
+                    <div
+                        class="h-40 w-40 rounded-full border-[4px] border-white dark:border-[#242526] bg-white relative">
+                        <div class="h-full w-full rounded-full bg-cover bg-center"
+                            data-alt="Alex Johnson Profile Picture"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBl7tDHo-vKF48zmJwTt2xqx2_jeph-oiiixGtHKL8qKWeIIxRK_q8PNYSZEiAa6RbEMTBU4xpNFlPvmTXElLmD77WZIF-MtzLNrfeBK1yjSKBWnIe9Mkn97zPHkxoqeMQI4GjVGEmXqDT3Jr48qyjU5ToTScRkDuoKg64EuspK3LXA2gbOKyYLwZL-GWdzsCshlCKG40RG0GKqk29S5svRGtH1CyT18defSWwenmLc_jJGiXe5h4hEW27KBSsybklt-FEU9LKrsCo');">
+                        </div>
+                        <button
+                            class="absolute bottom-2 right-2 flex h-9 w-9 items-center justify-center rounded-full bg-[#f0f2f5] hover:bg-[#dbe0e6] border border-white">
+                            <span class="material-symbols-outlined text-[20px] text-black">photo_camera</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Name & Actions -->
+                <div
+                    class="flex flex-1 flex-col items-center sm:items-start sm:pl-6 sm:pb-4 gap-4 sm:gap-0 sm:flex-row sm:justify-between w-full">
+                    <div class="flex flex-col items-center sm:items-start mb-4 sm:mb-0">
+                        <h1 class="text-[32px] font-bold leading-tight text-black dark:text-white">Alex Johnson</h1>
+                        <p class="font-semibold text-[#65676b] text-[15px] sm:text-[17px]">1.2k friends</p>
+                        <!-- Friends Avatars Stack -->
+                        <div class="mt-2 flex -space-x-2 overflow-hidden">
+                            <div class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-[#242526] bg-cover bg-center"
+                                data-alt="Friend 1"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA1p6FdOzYmGHn-ebemZlbXrV00OIbQWpiCy1bPFDiUW7XQ096H-KGL7t4HaxSwdqpLkq7Cf_qJW3ItxMdJS4iT4NhYMBDeHA9aPog4d-wobdpJpELtAMngclsBN31zwl1WzHlx8TixkInKiQuzt2g47mWbvxPVsTb3entHQenSOPm0fAE-AhY7Kz-3ZRGiRqXD9RIL9Uc98pog4_Q1QdJpl_vCLV_FooE8pCeqPzke27HkM5_MlPK8sqVOt1ded-xtcGKKlaxnfmQ')">
+                            </div>
+                            <div class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-[#242526] bg-cover bg-center"
+                                data-alt="Friend 2"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCjZQ10_XIlwrrmQUmmDHBGRoc0crwJXFfP0xl0yMEl2iqkcAAwc5dG6usVHkML_N9s9rVygsK7C8dww2T3oyXD8Tvj9RBw2K3qApoDA6ledHUTwlnLemPnxnuflI6AQhMhOh9ojvYcDsSfU1VDyYpn5QdlRa56GFgVCRm7U8Pu9hdOFbw7dlqBTkbK1bNHeB1dUjV3-pZeN5rBbfBsx-2mkQL4RAwDIE5iah4IiPo5HVtU9y__KwKt5MQ54vt3NdJ4wPEYRMCTOFY')">
+                            </div>
+                            <div class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-[#242526] bg-cover bg-center"
+                                data-alt="Friend 3"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAAwVbl6G6zn8Z1l7j6DtQZsXyx4I8QZsNSurLla5oT82YbFGZaTfodhTlLvrvmNi7-RJKMznV065YQvvqtty3kMHsmwc4hCuWVhS73NwZZ6IcjWOcbYYnTX8zTYP6dZUZgBBa_yx9m3snCoz-guBAq9b1w0k2d7bC5LyijNaOCBhF_ObGCuDo7dvU4rrA16A0Fb1rAUmDj4N10Fy02cWcNlQjO9N2xn4X_1Q4zXQa9OhdIL5RD4gYvB601XJjtdlMioVf0lj5S2Wo')">
+                            </div>
+                            <div class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-[#242526] bg-cover bg-center"
+                                data-alt="Friend 4"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC94Y6l0QecmtzN_gn0zMUEXnVRm1zO7C90uPIXoyBWQLxzLL6mq8Qis7HPK8m_jy56tr52PyZaFfWCp-fjQ7XJx3jcSlquE9ysvA67qJ_nUAFz34VcVksMM_rzR4QCmFPFIVB8Vit7ZSrqBoJB5nM55c8x08LKpWjorZTPj30GMIU3026Hx0bLdcsfA7cZ2LrWJulNPZMHLbDvZahYnWXQTDkVQhgFR5H3q0lSsP4YAdcwEKxIWo4VdyhMCwBpE2b-pVY6os_PImY')">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button
+                            class="flex items-center gap-2 rounded-lg bg-primary px-4 h-9 text-[15px] font-semibold text-white hover:bg-blue-700 transition-colors">
+                            <span class="material-symbols-outlined text-[20px]">add</span>
+                            <span>Add to Story</span>
+                        </button>
+                        <button
+                            class="flex items-center gap-2 rounded-lg bg-[#e4e6eb] px-4 h-9 text-[15px] font-semibold text-black hover:bg-[#dbe0e6] transition-colors dark:bg-[#3a3b3c] dark:text-white dark:hover:bg-[#4e4f50]">
+                            <span class="material-symbols-outlined text-[20px]">edit</span>
+                            <span>Edit Profile</span>
+                        </button>
+                        <button
+                            class="flex items-center justify-center rounded-lg bg-[#e4e6eb] w-12 h-9 text-black hover:bg-[#dbe0e6] transition-colors dark:bg-[#3a3b3c] dark:text-white dark:hover:bg-[#4e4f50]">
+                            <span class="material-symbols-outlined text-[20px]">keyboard_arrow_down</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Tabs Navigation -->
+            <div class="w-full max-w-[1080px] border-t border-[#ccced2] dark:border-[#3e4042] px-4 sm:px-8">
+                <div class="flex items-center gap-1 overflow-x-auto no-scrollbar">
+                    <a class="flex h-[60px] items-center border-b-[3px] border-primary px-4 text-[15px] font-semibold text-primary"
+                        href="#">Posts</a>
+                    <a class="flex h-[60px] items-center border-b-[3px] border-transparent px-4 text-[15px] font-semibold text-[#65676b] hover:bg-[#f0f2f5] rounded-lg my-1 dark:text-[#b0b3b8] dark:hover:bg-[#3a3b3c]"
+                        href="#">About</a>
+                    <a class="flex h-[60px] items-center border-b-[3px] border-transparent px-4 text-[15px] font-semibold text-[#65676b] hover:bg-[#f0f2f5] rounded-lg my-1 dark:text-[#b0b3b8] dark:hover:bg-[#3a3b3c]"
+                        href="friends.html">Friends</a>
+                    <a class="flex h-[60px] items-center border-b-[3px] border-transparent px-4 text-[15px] font-semibold text-[#65676b] hover:bg-[#f0f2f5] rounded-lg my-1 dark:text-[#b0b3b8] dark:hover:bg-[#3a3b3c]"
+                        href="gallery.html"> Photos</a>
+                    <a class="flex h-[60px] items-center border-b-[3px] border-transparent px-4 text-[15px] font-semibold text-[#65676b] hover:bg-[#f0f2f5] rounded-lg my-1 dark:text-[#b0b3b8] dark:hover:bg-[#3a3b3c]"
+                        href="gallery.html">Videos</a>
+                    <a class="flex h-[60px] items-center border-b-[3px] border-transparent px-4 text-[15px] font-semibold text-[#65676b] hover:bg-[#f0f2f5] rounded-lg my-1 dark:text-[#b0b3b8] dark:hover:bg-[#3a3b3c]"
+                        href="#">Check-ins</a>
+                    <div class="flex-1"></div>
+                    <button
+                        class="hidden sm:flex items-center justify-center rounded-lg bg-[#e4e6eb] px-3 py-2 text-black hover:bg-[#dbe0e6] dark:bg-[#3a3b3c] dark:text-white">
+                        <span class="material-symbols-outlined">more_horiz</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <!-- Page Content Grid -->
+        <div class="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-12 pb-10">
+            <!-- LEFT COLUMN: Intro & Photos/Friends (Sticky) -->
+            <div class="flex flex-col gap-4 lg:col-span-5 xl:col-span-4 h-fit">
+                <!-- Intro Card -->
+                <div class="rounded-lg bg-white p-4 shadow-sm dark:bg-[#242526]">
+                    <h2 class="mb-3 text-xl font-bold text-black dark:text-white">Intro</h2>
+                    <div class="mb-4 text-center text-[15px] text-black dark:text-white">
+                        Product Designer at TechFlow • Passionate about design systems and UI Engineering.
+                    </div>
+                    <button
+                        class="mb-4 w-full rounded-lg bg-[#e4e6eb] py-2 text-[15px] font-semibold text-black hover:bg-[#dbe0e6] dark:bg-[#3a3b3c] dark:text-white dark:hover:bg-[#4e4f50]">Edit
+                        Bio</button>
+                    <ul class="flex flex-col gap-4 text-[15px]">
+                        <li class="flex items-center gap-3 text-[#1c1e21] dark:text-[#e4e6eb]">
+                            <span class="material-symbols-outlined text-[#8c939d]">work</span>
+                            <span>Works at <strong>TechFlow</strong></span>
+                        </li>
+                        <li class="flex items-center gap-3 text-[#1c1e21] dark:text-[#e4e6eb]">
+                            <span class="material-symbols-outlined text-[#8c939d]">school</span>
+                            <span>Studied at <strong>University of Design</strong></span>
+                        </li>
+                        <li class="flex items-center gap-3 text-[#1c1e21] dark:text-[#e4e6eb]">
+                            <span class="material-symbols-outlined text-[#8c939d]">home</span>
+                            <span>Lives in <strong>San Francisco, CA</strong></span>
+                        </li>
+                        <li class="flex items-center gap-3 text-[#1c1e21] dark:text-[#e4e6eb]">
+                            <span class="material-symbols-outlined text-[#8c939d]">location_on</span>
+                            <span>From <strong>Seattle, WA</strong></span>
+                        </li>
+                        <li class="flex items-center gap-3 text-primary">
+                            <span class="material-symbols-outlined text-[#8c939d]">language</span>
+                            <a class="hover:underline" href="#">alexjohnson.design</a>
+                        </li>
+                    </ul>
+                    <button
+                        class="mt-4 w-full rounded-lg bg-[#e4e6eb] py-2 text-[15px] font-semibold text-black hover:bg-[#dbe0e6] dark:bg-[#3a3b3c] dark:text-white dark:hover:bg-[#4e4f50]">Edit
+                        Details</button>
+                    <button
+                        class="mt-2 w-full rounded-lg bg-[#e4e6eb] py-2 text-[15px] font-semibold text-black hover:bg-[#dbe0e6] dark:bg-[#3a3b3c] dark:text-white dark:hover:bg-[#4e4f50]">Add
+                        Hobbies</button>
+                </div>
+                <!-- Photos Card -->
+                <div class="rounded-lg bg-white p-4 shadow-sm dark:bg-[#242526]">
+                    <div class="mb-3 flex items-center justify-between">
+                        <h2 class="text-xl font-bold text-black dark:text-white">Photos</h2>
+                        <a class="text-[15px] text-primary hover:underline" href="#">See all photos</a>
+                    </div>
+                    <div class="grid grid-cols-3 gap-1 overflow-hidden rounded-lg">
+                        <div class="aspect-square bg-cover bg-center cursor-pointer hover:opacity-90 transition-opacity"
+                            data-alt="Abstract art"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuATWccOTUDX04S1qmbQhi5YpbmHyZjIJO_kUK4iisvKayTXXwKXOu0908ubxQdUy26F2D8q0_1xlNZm-LsVH83JU1R5kTiVm7ShyB5YNLwR29IaN6BzimVjWCRH18aBbgEpDOG3RkwDiDrJpv9-GkCeZGHT-13wtq_Gr_7HD219234k-VT-2VEE6I3878DOqXw3QlcO9XhjhhLgs6G6U0Lm0gHKTOyHM8pBgYO0w4IgD1H2t5-CO-Zsb9waXE98sGP-T9BA5lRkY3w');">
+                        </div>
+                        <div class="aspect-square bg-cover bg-center cursor-pointer hover:opacity-90 transition-opacity"
+                            data-alt="Modern building"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDTEuDyIW0afz72P_bwBIxjgBnyzJQ1iKYv3AVyLbX-e2rl6swONFHarc_zkzFvKV95D8s19Yi78nRshObysNbAvBjIMpaU4-D60ZlkD3rjG4JuxKPLe9WFHEPa2Z2n1Vlwd-iACjDIYSLvNtgYbGzM3pNi-SG2C0yBThkUQKYIpLHjSSV7BYRWT1KHxGwd2WPFkykFzvOs7W27n98T_n2_2u0GY-xfUnMSTVsdGD60lbEKwkNZQ0oHuoDwgxdNB-8jlo266bnaglw');">
+                        </div>
+                        <div class="aspect-square bg-cover bg-center cursor-pointer hover:opacity-90 transition-opacity"
+                            data-alt="Coffee cup"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCL3TyS5oUDwsHrUTIBf60pKWp5b6ofNyRbD17y0gWnZuhfKI_I71uhpNf7BWGMhC9PKjw4UVP-6uPgvcwYkdIraop6eZ60dzJpHvUnlxmbjpEw2jCHOerCEB7ecY5OoOY2NBXIgQR8OZHu0qQkPUoExzwMk5Yc12jIBCcVYQyJF2VoqA0sQU48t3gJUnka9hCDQJG5yASeHFqQK1A2muxlvivsb1umIxs-uOmZBIPX_lB4Od5d62RQ3vTjd5f6nhrbkRXbFmKPiQM');">
+                        </div>
+                        <div class="aspect-square bg-cover bg-center cursor-pointer hover:opacity-90 transition-opacity"
+                            data-alt="Laptop work"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAhxASb_4hIPp5JbPTF9HqMKU_F_P4uRVRVmarKIDPZSnfg_d6khC3LNRrHD_Avh3N_aam6i-68RfHANRGG_yai23EDfbUSyEwcaBLBRtA6kHUnVYY8euhfNOmeHbkIoV_5CAdncs_u4bAU-iUjeO3S-sfwW1uRoli6Pzk1bdyb4X_G11fsGSo19YEQMFoXPeLJjei5Oh_xX6mZ3tqKxi6SZ7dr6VVJ8XrRu3MX07VhMeob4HPAZBt6OlpDTcoN59_QgebdrYUK5N8');">
+                        </div>
+                        <div class="aspect-square bg-cover bg-center cursor-pointer hover:opacity-90 transition-opacity"
+                            data-alt="City street"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCBbWGoMPDmQjcUjp1ftORw3SS6E10igIvE_seiXM2SpjrS-cbo9S-V1qCaD1SrH4fRSOt7cS6hodP0gG6dNre9zcySIsKYER6j5dodlh9SpxBMSaCSCIU84MuOqgQqxHK9ty3sjv-Z8UGnGGQx5UfzaGLnVMIKP4Ra_90HSFK2kA31io905CWve_CYDe4ezo_dadCM-uIrtgd5hyH96R4z_sicglbszKBC-IngDStq2ZPtHFhuGRrx9h1nU2re0239zYSFvzvBvgY');">
+                        </div>
+                        <div class="aspect-square bg-cover bg-center cursor-pointer hover:opacity-90 transition-opacity"
+                            data-alt="Beach sunset"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCBD26lGB-xf175_3v77abIwOvIPUDyHlZfdMRl1MEMacWyJdXGUKiSR7HvD0XELlvHtKgvhGGt5Kn37DEBPiUrb4JsSQzPfZgXBj_bndNmZldK55_u8Y2t2UTyLD3nCBNanrSCjTjAfGRf8EEzRlH0fMQMPV1p_sIIOC0hnF6s58Ps0mYDLptaoJmv2bpmcw3U0fOflxV9rdSIvnUHMGQUp4MXc_6rn6k4soJGBm4rb3J8TW7TNlMFm6rLVZU3CbP5ZyYayXRtTHE');">
+                        </div>
+                        <div class="aspect-square bg-cover bg-center cursor-pointer hover:opacity-90 transition-opacity"
+                            data-alt="Mountains"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAhhyN78fpmmmkST2or958Fjd9f09agV2X5Uu07JRpofiN0VlYYk2L2I3OXKYkYdSOIe8gj_3n5Nqr7pVSFi6sjhkL_PXOXBbErr5kHdpTPrWYBplzZmzmyALsRokq9CU9mKrzjd-0XQ8eoczIV9siXjfCWbqfM7kyJ0QZJRBHmcGbmRN-amL1p6QIezg-6xkFQ1JsbDKuSjvvPcEew7G8TmjTJ5AhUNMoayjh4tcLAqdsw51ZIKIdsMxQTiZdgIKHvR0Q0yQVeYXk');">
+                        </div>
+                        <div class="aspect-square bg-cover bg-center cursor-pointer hover:opacity-90 transition-opacity"
+                            data-alt="Forest"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBL-HzR-dHN-YO8eyLDhCYYBBXV4Tb17V7uSsPP_ARf4UQoLoNvoJEaqeFy3UrHTHlSvUeuhaQmIer-FqyOmjI6brfdBG7b84Egd7-NyHMIBC9a3KW9oOjIeOYl7JbXL3lzJCoiH8Rnr6kVi2kV4_6k23kMv_vX8Wb6h_wqKmLwMxNDPfAOAvwl60FK8IG0x9MuIwWnreULQixeeRU-JS8xfVDGs3diS6YQ7b74vSUkhklFulbZ-0o3n0B-yPrTwHcBmbMO18kh1_M');">
+                        </div>
+                        <div class="aspect-square bg-cover bg-center cursor-pointer hover:opacity-90 transition-opacity"
+                            data-alt="Sky"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBEk7_NulLp_zmKMv0LqLQZGRA0IWB04Sck3QDokDXhLSnqMDwOJjujM1rAAR91DDs3atzmmf2TO5iiF37xpRq9Nh3lvkoDk1XXWfKsL3MXMOxL65uaIwlD2I-wEaO-caHoESasTGhZwHxM8C7FKlepbXJJVxYtCErtfIGSpTdfcD0gM1vp60fNJae7Z3KeeXbSRjpH6F5bRh0HBTbcwUZXMyJo-aTM3xIz1X2cfvFpff8iYyScqbYjmdkvwIuyJWYMqGMD9SeShls');">
+                        </div>
+                    </div>
+                </div>
+                <!-- Friends Card -->
+                <div class="rounded-lg bg-white p-4 shadow-sm dark:bg-[#242526]">
+                    <div class="mb-1 flex items-center justify-between">
+                        <h2 class="text-xl font-bold text-black dark:text-white">Friends</h2>
+                        <a class="text-[15px] text-primary hover:underline" href="#">See all friends</a>
+                    </div>
+                    <p class="text-[#65676b] text-[15px] mb-3">1,240 friends</p>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="cursor-pointer">
+                            <div class="aspect-square w-full rounded-lg bg-gray-200 bg-cover bg-center mb-1"
+                                data-alt="Friend Sarah"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCqyaEgYpuqi3XoonQfbA2PjJpb2Jzw1yXH2H7eBhyXUDt8SeqReEn6b77iAIEfr7Vu32H8BtpsRKNgCYnSVo_v_MxOKNz4W8A_qCQJ1mcKGaKPCD2YrqoJoeOWbLQdGPvUpRqBNAJsLISJlDOC0AoJtzyym3Vupduv2SkEg1uGSdeMLVXLz2YicXLaTT6PZ_lSa2-WoUaaARBYZQKKsnR8Uz_I55-ni3KwUeWrmdFrx636WiyckA6nDB_bjscJAJ2q-n3fTgL-pkY');">
+                            </div>
+                            <p class="text-[13px] font-semibold text-black dark:text-[#e4e6eb] truncate">Sarah Wilson
+                            </p>
+                        </div>
+                        <div class="cursor-pointer">
+                            <div class="aspect-square w-full rounded-lg bg-gray-200 bg-cover bg-center mb-1"
+                                data-alt="Friend James"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAw6nb6RyFsYeYhiC_Pe_mHcSF2ns3WWdyGUF2TFDtDFE3Uekd6IaZlmwVpMWbXm-FPWgxGaZA_JQSUvDFsk58e5SBvHpyOurgU-4TY0OSJPCqZzedG5MbXN3dUA5UOdBakTiQ7RFHa19_vbcg9EDKcgIG8r2ZUvDpcTduzkLCrF_pqBKuTEagAZcUm5VlNmT_Ky3YkWISpQddvjj3poyfaZiUc5mEub_01O6C1c110TzDD4jwRrNj4wFzQ8A-oAG5B3SVqxNt7kIw');">
+                            </div>
+                            <p class="text-[13px] font-semibold text-black dark:text-[#e4e6eb] truncate">James Lee</p>
+                        </div>
+                        <div class="cursor-pointer">
+                            <div class="aspect-square w-full rounded-lg bg-gray-200 bg-cover bg-center mb-1"
+                                data-alt="Friend Emily"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAh8IrlHeixXrB_04oMQ4qDkDWT0IjeVZmXXm7q72TH4UEJR1xmKlC0iJG5MOvyGKmwdLQV2q9cbQP78f-or8muRak3XGlUTHHp66bGgVfj2YnJ0nbIDP1HPBNJA2ecoSDxelHUYOhBIT6sYLOPTuAS5fW09g5eJgwTdvMGUzwC0oONxEaUvBdpqygV8LbWV_rjv4PfjxF3Z9yAe0M1z-ChnQkZ8doBiiChkaKTl1OBcRI1wseBDRirD8-RGULhY7gCX1pM1KEhU9Y');">
+                            </div>
+                            <p class="text-[13px] font-semibold text-black dark:text-[#e4e6eb] truncate">Emily Chen</p>
+                        </div>
+                        <div class="cursor-pointer">
+                            <div class="aspect-square w-full rounded-lg bg-gray-200 bg-cover bg-center mb-1"
+                                data-alt="Friend David"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAxdwScE6DXKUWpR70zUcDDaxxpePn1cd2jUI7AkZuMPcBXxfVR1IGIGI2QlDu7iGl0u0GpCTsycqU0My4ER_aHqTbhY-l4hPh26tb7TdLhAmpnGqDAf2j5HBucLr6mpsn6YfG52kFVQspBdDsl3cckeNrT92Qpli25t498rri76nazD-P8L4tC2znDWx-lXL06TnwcmmTcV8__F07IGYvGzDAjN52Z7xfreW6hBNFxc5wKLiu2JWW7Tza4c0MqIUlihCo_zPIR9V0');">
+                            </div>
+                            <p class="text-[13px] font-semibold text-black dark:text-[#e4e6eb] truncate">David Kim</p>
+                        </div>
+                        <div class="cursor-pointer">
+                            <div class="aspect-square w-full rounded-lg bg-gray-200 bg-cover bg-center mb-1"
+                                data-alt="Friend Anna"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCZRa_NLuSisURskJwyL0BOnltUxv5IZAJGLkG6caviDUN3ycmr6R0vZaPtkOjcmlC04yu3TxLlyMc9KOnwm56EzNp_abTpZk9kfwwpHiNMdYlbOWu0CgUdkWr-HjscAQ4xuLhgqLPbNmrRamvsnmnnigSkoZRH1fkQ6SJwmxbn8F0zWcVlhmltf9YU1sK0RGiWTmBUtvdiXSIBays3ltISbMrxUOfnsq8cPCafzBp-sZvgjKGvwr6XkO1LsDJpSoNiPsmB9ff5hwA');">
+                            </div>
+                            <p class="text-[13px] font-semibold text-black dark:text-[#e4e6eb] truncate">Anna Smith</p>
+                        </div>
+                        <div class="cursor-pointer">
+                            <div class="aspect-square w-full rounded-lg bg-gray-200 bg-cover bg-center mb-1"
+                                data-alt="Friend Robert"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAc_iz1yiE5niMw1rPgE4-1aKD_Bhvh4jGjucBOWqv20O0ubthf7myduZ8MCZV8weUaCBTuVJofe9VntDlZBk2QspTOt1iv2T7cbD2PuPnsReGGEE8uw5Yp6avbGbAkQODu_fA2QRxkVgIN5STF3ENuOyXaJ4eVkjXj59T20Z9O84K9_UTyhVDbfOq3rypODsyIaLvRagQnCJ52suXmSYO6DS7h7X7KJG85nBbjB6QAzibR9cngDxdUyfew6feRNJVW4tGu_t53-Mg');">
+                            </div>
+                            <p class="text-[13px] font-semibold text-black dark:text-[#e4e6eb] truncate">Robert Fox</p>
+                        </div>
+                        <div class="cursor-pointer">
+                            <div class="aspect-square w-full rounded-lg bg-gray-200 bg-cover bg-center mb-1"
+                                data-alt="Friend Jessica"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCXkdTqzQ57yfsDDmKzIr5q4QfUZwbaV0YQFPqM8dXfJoYuUNvZ7yR1rle8kRatV03DcIdK0huGKTjLmbNfrYKoNsOWCEyw1sUhkoMxr6D0Tbj8VAhiW_HNa43r0j5GVESimsr7Z5QBQNHG9C3NVLynMge1orfJVmI2aLt6bWLJqfEBbdav4tAaYD_nzMPcTuCZWoy1SBA6J49mYeRmPwiKeM9iSgyi1XyjKb6FYuc7eePX872ecr2birx5sTUsXVoa_36PheqxYCI');">
+                            </div>
+                            <p class="text-[13px] font-semibold text-black dark:text-[#e4e6eb] truncate">Jessica Davis
+                            </p>
+                        </div>
+                        <div class="cursor-pointer">
+                            <div class="aspect-square w-full rounded-lg bg-gray-200 bg-cover bg-center mb-1"
+                                data-alt="Friend Daniel"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA_tttKoaZhsxEe_UtfInchS5Nn6ivHGnUd9K40HVKH7Bu9bj7dQiw_y_lEBhuzWhGfv6ncRmO8DJiD9rJOrT_ltLiY02qLHJgljhVm7780vwPZoms9Ysx6oRUx4CSpdSOGEIy3ViYRrnpF7fwV5iRcRVLWkTcq_oTosLKYNhtKrARipUmxH_tNpB0UFTVWMtSzZ1XJ8JO9xqNh6i-J9yj0GLcoTr3K2BcgSLeaYpmG56StnUxatJbRNgTjLGmKdgq9jOrFbgCYZXc');">
+                            </div>
+                            <p class="text-[13px] font-semibold text-black dark:text-[#e4e6eb] truncate">Daniel Miller
+                            </p>
+                        </div>
+                        <div class="cursor-pointer">
+                            <div class="aspect-square w-full rounded-lg bg-gray-200 bg-cover bg-center mb-1"
+                                data-alt="Friend Maria"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB5gDtDG7XK0e5Rks9aITMG1zGZczWJfJurFMkszYsc7q00p0PJ8f0Q8S1edbrDTFjjYXn0wXzmbeEIKEz6Vpq4tXu2RBs-TAeIYOFaT87c9nylO1bxAA-G9B_D2RpQEAnysAPxaRXR_IXbgPrpk8V3waKXqhIMlIBOs-vX7CK-d3TAIqTkX1ytoZysxufOx7PhJmUyJqo1lGdpT3YGYwq5QVnISoU3LRUb0uEVXyrPKLhjV2EF2vQ4A2o580hjDjq6rnRporAX3mM');">
+                            </div>
+                            <p class="text-[13px] font-semibold text-black dark:text-[#e4e6eb] truncate">Maria Garcia
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- CENTER COLUMN: Feed -->
+            <div class="flex flex-col gap-4 lg:col-span-7 xl:col-span-8">
+                <!-- Create Post Widget -->
+                <div class="rounded-lg bg-white p-4 shadow-sm dark:bg-[#242526]">
+                    <div class="flex gap-3 mb-3 border-b border-[#e4e6eb] dark:border-[#3e4042] pb-3">
+                        <div class="h-10 w-10 shrink-0 rounded-full bg-gray-300 bg-cover bg-center"
+                            data-alt="Current user avatar"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCLXLaKbnRYhpZhxNLkXc1R7zQAyuXHoKL1pLh7q0M21BhO-sbeBxOVvBmC2MU4_D_U77-d72I9T2kM3wotZSMfm6CpFH0CkHTSum9cQ3FXdtUqipxIQpDoyCkB9sCnHZxZuQCVI1AOmTcNA92qPJ7AI737xI2mXJtHEB-RVEwSIOaWVL_tytJgsD7FH-MWQD_6tgA7zgZ_G5LH_7G0mFj_hes6EokDVKGofTxbtS6qGeawH5peuFYXgH0zBXrm1cOFGEh7f-p5uDA');">
+                        </div>
+                        <input
+                            class="flex-1 rounded-full bg-[#f0f2f5] dark:bg-[#3a3b3c] px-4 py-2 text-[15px] outline-none hover:bg-[#e4e6eb] transition-colors cursor-pointer dark:hover:bg-[#4e4f50] border-none focus:ring-0"
+                            placeholder="What's on your mind?" type="text" />
+                    </div>
+                    <div class="flex justify-between px-2">
+                        <button
+                            class="flex flex-1 items-center justify-center gap-2 rounded-lg py-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]">
+                            <span
+                                class="material-symbols-outlined text-[#f3425f] text-[24px] filled">video_camera_front</span>
+                            <span class="font-semibold text-[#65676b] dark:text-[#b0b3b8] text-[15px]">Live Video</span>
+                        </button>
+                        <button
+                            class="flex flex-1 items-center justify-center gap-2 rounded-lg py-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]">
+                            <span
+                                class="material-symbols-outlined text-[#45bd62] text-[24px] filled">photo_library</span>
+                            <span
+                                class="font-semibold text-[#65676b] dark:text-[#b0b3b8] text-[15px]">Photo/Video</span>
+                        </button>
+                        <button
+                            class="flex flex-1 items-center justify-center gap-2 rounded-lg py-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]">
+                            <span class="material-symbols-outlined text-[#f7b928] text-[24px] filled">flag</span>
+                            <span class="font-semibold text-[#65676b] dark:text-[#b0b3b8] text-[15px]">Life Event</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Feed View Switcher (Optional, decorative) -->
+                <div class="flex items-center justify-between rounded-lg bg-white p-2 shadow-sm dark:bg-[#242526]">
+                    <h3 class="pl-2 text-[20px] font-bold text-black dark:text-white">Posts</h3>
+                    <div class="flex gap-2">
+                        <button
+                            class="flex items-center gap-2 rounded-md bg-[#e4e6eb] px-3 py-1.5 text-sm font-semibold text-black dark:bg-[#3a3b3c] dark:text-white">
+                            <span class="material-symbols-outlined text-[20px]">tune</span>
+                            Filters
+                        </button>
+                        <button
+                            class="flex items-center gap-2 rounded-md bg-[#e4e6eb] px-3 py-1.5 text-sm font-semibold text-black dark:bg-[#3a3b3c] dark:text-white">
+                            <span class="material-symbols-outlined text-[20px]">settings</span>
+                            Manage Posts
+                        </button>
+                    </div>
+                </div>
+                <!-- Post 1 (Image Post) -->
+                <div class="rounded-lg bg-white shadow-sm dark:bg-[#242526]">
+                    <!-- Post Header -->
+                    <div class="flex items-start justify-between p-4">
+                        <div class="flex gap-3">
+                            <div class="h-10 w-10 cursor-pointer rounded-full bg-gray-200 bg-cover bg-center"
+                                data-alt="User Avatar"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDqPjWBSoo_q9uxOUXRhiWFubaI0gz9ybCR6qUWRJ6PfUveDOTWCPwsJdTFjKogizD_KSyjjsaxIDWqn-xwWubrR7Xv6LdVd081jZ21h58DZAcW9d6yODjFBciPqxA2Rb44OobMX4bYp2TW8Qh0K9svJeXc8235RykBJB75QfpGVNm5kLhdMUBcLtMdDi8hr9BUXDgAHByhapcrL1ob1UDwZLbjkq3zA7WX_Z6UygnEbOzVX0Gb6TvQ8OlJ4XP4PPqD2QOgAdavzLI');">
+                            </div>
+                            <div class="flex flex-col">
+                                <a class="text-[15px] font-semibold text-black dark:text-white hover:underline"
+                                    href="#">Alex Johnson</a>
+                                <div class="flex items-center gap-1 text-[13px] text-[#65676b] dark:text-[#b0b3b8]">
+                                    <span class="hover:underline cursor-pointer">2h</span>
+                                    <span>•</span>
+                                    <span class="material-symbols-outlined text-[14px]">public</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="rounded-full p-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]">
+                            <span class="material-symbols-outlined text-[#65676b] dark:text-[#b0b3b8]">more_horiz</span>
+                        </button>
+                    </div>
+                    <!-- Post Content -->
+                    <div class="px-4 pb-2">
+                        <p class="text-[15px] text-[#1c1e21] dark:text-[#e4e6eb]">Had an amazing time hiking this
+                            weekend! The views were absolutely breathtaking. 🏔️🌲 #Adventure #Nature #Hiking</p>
+                    </div>
+                    <div class="w-full bg-gray-100" data-alt="Mountain landscape post image">
+                        <img alt="Mountain hike view" class="w-full object-cover max-h-[500px]"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe4IsCrjWtDBVcNrAppZ1S0w70qaufSYHk81TKAyRfz9ZMBFroD8yKTA_Icf4-AoUUpOagrCaqRoG-5WvXxRxvFN9WRVJmpw4nUpuuL7nl0VCzLsJgRjKfqjNyZJBlMJvp810ZeIob0Bl_nE-tV4zo3-kzJjnbUplpDGY_XroD85MyNa0lpd21yK9n56tSgYwFXUj39MZmIVUQqtX562AbKj2wX81qXHYHude92wftsGWcXjUqTEY4eCWrQCZpRr5xvhp8kryHhyA" />
+                    </div>
+                    <!-- Post Stats -->
+                    <div
+                        class="mx-4 flex items-center justify-between border-b border-[#e4e6eb] py-2 dark:border-[#3e4042]">
+                        <div class="flex items-center gap-2">
+                            <div class="flex items-center -space-x-1">
+                                <span class="flex h-5 w-5 items-center justify-center rounded-full bg-primary z-20">
+                                    <span class="material-symbols-outlined text-[12px] text-white">thumb_up</span>
+                                </span>
+                                <span class="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 z-10">
+                                    <span class="material-symbols-outlined text-[12px] text-white">favorite</span>
+                                </span>
+                            </div>
+                            <span
+                                class="text-[15px] text-[#65676b] dark:text-[#b0b3b8] hover:underline cursor-pointer">245</span>
+                        </div>
+                        <div class="flex gap-4 text-[15px] text-[#65676b] dark:text-[#b0b3b8]">
+                            <span class="hover:underline cursor-pointer">42 Comments</span>
+                            <span class="hover:underline cursor-pointer">12 Shares</span>
+                        </div>
+                    </div>
+                    <!-- Post Actions -->
+                    <div class="mx-4 flex py-1">
+                        <button
+                            class="flex flex-1 items-center justify-center gap-2 rounded-lg py-1.5 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]">
+                            <span class="material-symbols-outlined text-[#65676b] dark:text-[#b0b3b8]">thumb_up</span>
+                            <span class="font-semibold text-[#65676b] dark:text-[#b0b3b8] text-[15px]">Like</span>
+                        </button>
+                        <button
+                            class="flex flex-1 items-center justify-center gap-2 rounded-lg py-1.5 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]">
+                            <span
+                                class="material-symbols-outlined text-[#65676b] dark:text-[#b0b3b8]">chat_bubble</span>
+                            <span class="font-semibold text-[#65676b] dark:text-[#b0b3b8] text-[15px]">Comment</span>
+                        </button>
+                        <button
+                            class="flex flex-1 items-center justify-center gap-2 rounded-lg py-1.5 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]">
+                            <span class="material-symbols-outlined text-[#65676b] dark:text-[#b0b3b8]">share</span>
+                            <span class="font-semibold text-[#65676b] dark:text-[#b0b3b8] text-[15px]">Share</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Post 2 (Shared Article / Text) -->
+                <div class="rounded-lg bg-white shadow-sm dark:bg-[#242526]">
+                    <div class="flex items-start justify-between p-4">
+                        <div class="flex gap-3">
+                            <div class="h-10 w-10 cursor-pointer rounded-full bg-gray-200 bg-cover bg-center"
+                                data-alt="User Avatar"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCc8RtoUDrVQnmfi7CBUOYA_Mydv76XOzPRseLaIbDNrUq6RQ_8nK5V7YqnUGY182rEMDwQh6ICyYEsSuyxPoKOFMhe1vRpSdF9EcG3404y0ScdHVGtFUk_OGZa2Pd0LKtaK0nCc7z8AMu167AzpkSOjNLFR-vBA14U88vOlVnDwsog65mXva_U0KRRcjO3GY-rr7qzPYuzVdkye3bxiFc1jk7QwyMzQd7bjwT0gYJrweFjes-aZ-53xRYewQWdpZT1j4HqyC4nyns');">
+                            </div>
+                            <div class="flex flex-col">
+                                <a class="text-[15px] font-semibold text-black dark:text-white hover:underline"
+                                    href="#">Alex Johnson</a>
+                                <div class="flex items-center gap-1 text-[13px] text-[#65676b] dark:text-[#b0b3b8]">
+                                    <span class="hover:underline cursor-pointer">Yesterday at 10:30 AM</span>
+                                    <span>•</span>
+                                    <span class="material-symbols-outlined text-[14px]">group</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="rounded-full p-2 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]">
+                            <span class="material-symbols-outlined text-[#65676b] dark:text-[#b0b3b8]">more_horiz</span>
+                        </button>
+                    </div>
+                    <div class="px-4 pb-2">
+                        <p class="text-[15px] text-[#1c1e21] dark:text-[#e4e6eb]">Just finished working on a new design
+                            system project. It's been a long journey but totally worth it! Check out the case study
+                            below. 👇</p>
+                    </div>
+                    <!-- Link Preview Card -->
+                    <div class="mx-4 mb-4 overflow-hidden rounded-lg border border-[#e4e6eb] dark:border-[#3e4042]">
+                        <div class="h-48 w-full bg-cover bg-center" data-alt="Design system preview"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDCSl78S-2nqmsqIvfxXq_zfb4VHTLPy7UBIA0fGcjUXQSVw5puZwdg-wzKSaMWWq2gRF7fu3tf2YB3PtyWwErqPpU5iThiLgz6JX8tCrS-Go0X0wEv_ZvZdCxNLRcs3qAnheLNF3rRVqMAWq1vytWhDcuvE8w_Wwu-ysLA1AXM5jVRsxeYsC0fppm2YN7aKCniGo9PgUngaY5BufdgEdDKVy1-5vBrPjcuC93p1yDU_v3SzZKUysEFbPZ1soSw6MazxwPI57vnmM0');">
+                        </div>
+                        <div class="bg-[#f0f2f5] p-3 dark:bg-[#3a3b3c]">
+                            <p class="text-[12px] uppercase text-[#65676b] dark:text-[#b0b3b8]">medium.com</p>
+                            <h3 class="mt-1 text-[16px] font-bold leading-tight text-black dark:text-white truncate">
+                                Building Scalable Design Systems in 2023</h3>
+                            <p class="mt-1 text-[14px] text-[#65676b] dark:text-[#b0b3b8] line-clamp-2">A deep dive into
+                                how we structured our new component library to support multiple platforms and themes.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="mx-4 flex items-center justify-between border-b border-[#e4e6eb] py-2 dark:border-[#3e4042]">
+                        <div class="flex items-center gap-2">
+                            <div class="flex items-center -space-x-1">
+                                <span class="flex h-5 w-5 items-center justify-center rounded-full bg-primary z-20">
+                                    <span class="material-symbols-outlined text-[12px] text-white">thumb_up</span>
+                                </span>
+                            </div>
+                            <span
+                                class="text-[15px] text-[#65676b] dark:text-[#b0b3b8] hover:underline cursor-pointer">89</span>
+                        </div>
+                        <div class="flex gap-4 text-[15px] text-[#65676b] dark:text-[#b0b3b8]">
+                            <span class="hover:underline cursor-pointer">15 Comments</span>
+                        </div>
+                    </div>
+                    <div class="mx-4 flex py-1">
+                        <button
+                            class="flex flex-1 items-center justify-center gap-2 rounded-lg py-1.5 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]">
+                            <span class="material-symbols-outlined text-[#65676b] dark:text-[#b0b3b8]">thumb_up</span>
+                            <span class="font-semibold text-[#65676b] dark:text-[#b0b3b8] text-[15px]">Like</span>
+                        </button>
+                        <button
+                            class="flex flex-1 items-center justify-center gap-2 rounded-lg py-1.5 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]">
+                            <span
+                                class="material-symbols-outlined text-[#65676b] dark:text-[#b0b3b8]">chat_bubble</span>
+                            <span class="font-semibold text-[#65676b] dark:text-[#b0b3b8] text-[15px]">Comment</span>
+                        </button>
+                        <button
+                            class="flex flex-1 items-center justify-center gap-2 rounded-lg py-1.5 hover:bg-[#f0f2f5] dark:hover:bg-[#3a3b3c]">
+                            <span class="material-symbols-outlined text-[#65676b] dark:text-[#b0b3b8]">share</span>
+                            <span class="font-semibold text-[#65676b] dark:text-[#b0b3b8] text-[15px]">Share</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

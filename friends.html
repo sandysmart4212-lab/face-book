@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Friend/Connection Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1876f2",
+                        "background-light": "#f0f2f5",
+                        "background-dark": "#101822",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1e2732",
+                        "text-main": "#1c1e21",
+                        "text-secondary": "#65676b",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #bcc0c4;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #aeb1b5;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-text-main dark:text-gray-100 min-h-screen flex flex-col overflow-y-scroll">
+    <!-- Top Navigation Bar -->
+    <header
+        class="sticky top-0 z-50 bg-surface-light dark:bg-surface-dark border-b border-[#e4e6eb] dark:border-[#2f3a4a] px-4 py-2 shadow-sm">
+        <div class="flex items-center justify-between w-full max-w-[1920px] mx-auto gap-4">
+            <!-- Left: Logo & Search -->
+            <div class="flex items-center gap-4 min-w-[200px]">
+                <a href="index.html" class="text-primary cursor-pointer">
+                    <span class="material-symbols-outlined text-4xl">public</span>
+                </a>
+                <div class="relative hidden md:block">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-2.5 text-text-secondary dark:text-gray-400 text-xl">search</span>
+                    <input
+                        class="bg-background-light dark:bg-[#3a3b3c] text-text-main dark:text-gray-200 pl-10 pr-4 py-2.5 rounded-full border-none focus:ring-2 focus:ring-primary w-64 placeholder-text-secondary dark:placeholder-gray-400"
+                        placeholder="Search Friends" type="text" />
+                </div>
+            </div>
+            <!-- Center: Navigation Links -->
+            <div class="flex-1 flex justify-center gap-2 md:gap-10">
+                <a class="flex flex-col items-center justify-center w-16 h-12 md:w-28 relative group" href="index.html">
+                    <span
+                        class="material-symbols-outlined text-2xl text-text-secondary group-hover:text-primary dark:text-gray-400">home</span>
+                    <div
+                        class="absolute bottom-0 h-1 w-full bg-transparent group-hover:bg-primary rounded-t-lg transition-colors">
+                    </div>
+                </a>
+                <a class="flex flex-col items-center justify-center w-16 h-12 md:w-28 relative group"
+                    href="friends.html">
+                    <span class="material-symbols-outlined text-2xl text-primary">people</span>
+                    <div class="absolute bottom-0 h-1 w-full bg-primary rounded-t-lg"></div>
+                </a>
+                <a class="flex flex-col items-center justify-center w-16 h-12 md:w-28 relative group"
+                    href="gallery.html">
+                    <span
+                        class="material-symbols-outlined text-2xl text-text-secondary group-hover:text-primary dark:text-gray-400">ondemand_video</span>
+                    <div
+                        class="absolute bottom-0 h-1 w-full bg-transparent group-hover:bg-primary rounded-t-lg transition-colors">
+                    </div>
+                </a>
+                <a class="flex flex-col items-center justify-center w-16 h-12 md:w-28 relative group"
+                    href="marketplace.html">
+                    <span
+                        class="material-symbols-outlined text-2xl text-text-secondary group-hover:text-primary dark:text-gray-400">storefront</span>
+                    <div
+                        class="absolute bottom-0 h-1 w-full bg-transparent group-hover:bg-primary rounded-t-lg transition-colors">
+                    </div>
+                </a>
+            </div>
+            <!-- Right: Profile & Actions -->
+            <div class="flex items-center gap-2 md:gap-3 min-w-[200px] justify-end">
+                <button
+                    class="w-10 h-10 flex items-center justify-center bg-background-light dark:bg-[#3a3b3c] rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <span class="material-symbols-outlined text-black dark:text-white text-xl">apps</span>
+                </button>
+                <button
+                    class="w-10 h-10 flex items-center justify-center bg-background-light dark:bg-[#3a3b3c] rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <span class="material-symbols-outlined text-black dark:text-white text-xl">chat</span>
+                </button>
+                <button
+                    class="w-10 h-10 flex items-center justify-center bg-background-light dark:bg-[#3a3b3c] rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors relative">
+                    <span class="material-symbols-outlined text-black dark:text-white text-xl">notifications</span>
+                    <span
+                        class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">3</span>
+                </button>
+                <div
+                    class="w-10 h-10 rounded-full bg-gray-300 overflow-hidden cursor-pointer border border-gray-200 dark:border-gray-700 ml-1">
+                    <img alt="User profile picture" class="w-full h-full object-cover"
+                        data-alt="User profile avatar showing a smiling person"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8nOqjQ4P5PnwI-05ispR1BEaAq2TGNvmFFnR-aA5GbI1YB9XD7IOCzYfVyCJRm3imrvnol5j2e2tmGp8JPQbL07m6y2lrFnBC2ap3qtB-tPwhHVF7dgZTyRGwccEyjuCMrYBoaujbLB5FS7sePQ8ORLDUEVCgH4L5Lav1VKOsAxRH7ujbIDTxf0dGJwiOhwAIgrtiV9yC_O3aTPjAz3lei3huDDSnXI-pDmCjcOdCicabdoG7Um8tu0syuvoD1112XQ_bTu2konY" />
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Layout -->
+    <div class="flex flex-1 w-full max-w-[1920px] mx-auto pt-4 relative">
+        <!-- Left Sidebar: Filters & Navigation -->
+        <aside class="hidden lg:block w-[360px] fixed h-[calc(100vh-64px)] overflow-y-auto px-4 pb-4 scrollbar-hide">
+            <div class="flex flex-col gap-1">
+                <h2 class="text-2xl font-bold px-3 mb-4 text-text-main dark:text-white">Friends</h2>
+                <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-gray-200 dark:bg-[#2a3645] text-text-main dark:text-white font-medium"
+                    href="#">
+                    <div class="bg-primary text-white p-1.5 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-xl">people</span>
+                    </div>
+                    <span>Home</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a3645] text-text-secondary dark:text-gray-300 font-medium transition-colors"
+                    href="#">
+                    <div
+                        class="bg-gray-300 dark:bg-gray-600 text-text-main dark:text-white p-1.5 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-xl">person_add</span>
+                    </div>
+                    <div class="flex flex-1 justify-between items-center">
+                        <span>Friend Requests</span>
+                        <span class="material-symbols-outlined text-xl">chevron_right</span>
+                    </div>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a3645] text-text-secondary dark:text-gray-300 font-medium transition-colors"
+                    href="#">
+                    <div
+                        class="bg-gray-300 dark:bg-gray-600 text-text-main dark:text-white p-1.5 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-xl">person_search</span>
+                    </div>
+                    <div class="flex flex-1 justify-between items-center">
+                        <span>Suggestions</span>
+                        <span class="material-symbols-outlined text-xl">chevron_right</span>
+                    </div>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a3645] text-text-secondary dark:text-gray-300 font-medium transition-colors"
+                    href="#">
+                    <div
+                        class="bg-gray-300 dark:bg-gray-600 text-text-main dark:text-white p-1.5 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-xl">list</span>
+                    </div>
+                    <div class="flex flex-1 justify-between items-center">
+                        <span>Custom Lists</span>
+                        <span class="material-symbols-outlined text-xl">chevron_right</span>
+                    </div>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a3645] text-text-secondary dark:text-gray-300 font-medium transition-colors"
+                    href="#">
+                    <div
+                        class="bg-gray-300 dark:bg-gray-600 text-text-main dark:text-white p-1.5 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-xl">cake</span>
+                    </div>
+                    <span>Birthdays</span>
+                </a>
+                <div class="border-t border-gray-300 dark:border-gray-700 my-2 mx-3"></div>
+                <div class="px-3">
+                    <h3 class="text-lg font-semibold text-text-secondary dark:text-gray-400 mb-2">Custom Lists</h3>
+                    <ul class="flex flex-col gap-1">
+                        <li>
+                            <a class="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a3645] group"
+                                href="#">
+                                <span
+                                    class="material-symbols-outlined text-text-secondary group-hover:text-primary dark:text-gray-400">star</span>
+                                <span class="text-text-main dark:text-gray-200 font-medium">Close Friends</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a3645] group"
+                                href="#">
+                                <span
+                                    class="material-symbols-outlined text-text-secondary group-hover:text-primary dark:text-gray-400">work</span>
+                                <span class="text-text-main dark:text-gray-200 font-medium">Coworkers</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a3645] group"
+                                href="#">
+                                <span
+                                    class="material-symbols-outlined text-text-secondary group-hover:text-primary dark:text-gray-400">school</span>
+                                <span class="text-text-main dark:text-gray-200 font-medium">High School</span>
+                            </a>
+                        </li>
+                        <li>
+                            <button
+                                class="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a3645] w-full text-left text-primary">
+                                <span class="material-symbols-outlined">add</span>
+                                <span class="font-medium">Create New List</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+        <!-- Center Content: Requests & Grid -->
+        <main class="flex-1 lg:ml-[360px] xl:mr-[360px] px-4 md:px-8 pb-10">
+            <!-- Section: Friend Requests -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-text-main dark:text-white">Friend Requests</h3>
+                    <a class="text-primary text-sm font-medium hover:underline" href="#">See all</a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <!-- Request Item 1 -->
+                    <div
+                        class="flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-surface-light dark:bg-surface-dark p-3 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 shrink-0">
+                            <img alt="Friend Request Avatar" class="w-full h-full object-cover rounded-full"
+                                data-alt="Portrait of a woman with red hair looking confident"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeOVJh5tvvEzAX6nuGEQC2KNw9zoEMn3yATdBgsjgQbA528dn0TKRdoFOvCNtcUASNT69PZ0147opxO8dvaWzQ5O4uKm_ohtB_FaCaqM8IlRbzf4RN_ti2PF3ciyWF6xdqjn30mCpe1FWcMjM3g3ZaCrFV5QDJdGOE9Bn0sLVmlzU876AUEL0G3IRmRSorPl4HcRjEcI9br_lmFfW3EIlqhLO8YYXkwRdUoxoY7ZucmOjcIaMujZTBCZAL3eeujRsM2_YMcnbcpvI" />
+                        </div>
+                        <div class="flex-1 w-full">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-semibold text-text-main dark:text-white text-base">Jessica M.</h4>
+                                    <p class="text-xs text-text-secondary dark:text-gray-400">12 mutual friends</p>
+                                </div>
+                                <span class="text-xs text-text-secondary dark:text-gray-500">2d</span>
+                            </div>
+                            <div class="flex gap-2 mt-3">
+                                <button
+                                    class="flex-1 bg-primary text-white text-sm font-semibold py-1.5 px-3 rounded-md hover:bg-blue-600 transition-colors">Confirm</button>
+                                <button
+                                    class="flex-1 bg-gray-200 dark:bg-gray-700 text-text-main dark:text-white text-sm font-semibold py-1.5 px-3 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Request Item 2 -->
+                    <div
+                        class="flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-surface-light dark:bg-surface-dark p-3 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 shrink-0">
+                            <img alt="Friend Request Avatar" class="w-full h-full object-cover rounded-full"
+                                data-alt="Portrait of a smiling man with glasses in a park"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqn1g1o5uAww_wAsBkb9vwYabTJfVoLfbP9mdGeYPTnJ7YD1n-NI8CdyISLoUixu9ReaEJ7ipDJGhcXmlpo3YqCpQmIMNuJ9qLn0Vb-RaMw7ylWXWjXdUkiz2QpPgb7YC55VWQxef2nuJ5S9ukQG9FRoTPJrQUWKLCgcOBf2dCaGnJDXbhvUWnXkCI0Sx5PUHC6RM-QlcZlRRKQxa8ZUuoq35N-Vzp0riigJcMBq2EYck_cAwe4NX0hA1LZDlQxFOjmBxIpY54oTk" />
+                        </div>
+                        <div class="flex-1 w-full">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-semibold text-text-main dark:text-white text-base">David K.</h4>
+                                    <p class="text-xs text-text-secondary dark:text-gray-400">4 mutual friends</p>
+                                </div>
+                                <span class="text-xs text-text-secondary dark:text-gray-500">5h</span>
+                            </div>
+                            <div class="flex gap-2 mt-3">
+                                <button
+                                    class="flex-1 bg-primary text-white text-sm font-semibold py-1.5 px-3 rounded-md hover:bg-blue-600 transition-colors">Confirm</button>
+                                <button
+                                    class="flex-1 bg-gray-200 dark:bg-gray-700 text-text-main dark:text-white text-sm font-semibold py-1.5 px-3 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-300 dark:border-gray-700 my-6"></div>
+            <!-- Section: All Friends -->
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <h3 class="text-xl font-bold text-text-main dark:text-white">All Friends</h3>
+                    <div class="relative w-full sm:w-64">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-2.5 text-text-secondary dark:text-gray-400 text-xl">search</span>
+                        <input
+                            class="w-full bg-surface-light dark:bg-[#2a3645] border border-gray-300 dark:border-gray-600 text-text-main dark:text-white rounded-lg pl-10 pr-4 py-2 focus:ring-1 focus:ring-primary focus:border-primary placeholder-gray-500"
+                            placeholder="Search Friends" type="text" />
+                    </div>
+                </div>
+                <!-- Filters -->
+                <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                    <button
+                        class="px-4 py-1.5 rounded-full bg-primary/10 text-primary font-semibold text-sm whitespace-nowrap">All
+                        Friends</button>
+                    <button
+                        class="px-4 py-1.5 rounded-full bg-transparent border border-gray-300 dark:border-gray-600 text-text-secondary dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold text-sm whitespace-nowrap transition-colors">Birthdays</button>
+                    <button
+                        class="px-4 py-1.5 rounded-full bg-transparent border border-gray-300 dark:border-gray-600 text-text-secondary dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold text-sm whitespace-nowrap transition-colors">Current
+                        City</button>
+                    <button
+                        class="px-4 py-1.5 rounded-full bg-transparent border border-gray-300 dark:border-gray-600 text-text-secondary dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold text-sm whitespace-nowrap transition-colors">Work</button>
+                    <button
+                        class="px-4 py-1.5 rounded-full bg-transparent border border-gray-300 dark:border-gray-600 text-text-secondary dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold text-sm whitespace-nowrap transition-colors">University</button>
+                </div>
+                <!-- Friends Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+                    <!-- Friend Card 1 -->
+                    <div
+                        class="bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm flex flex-col group">
+                        <div class="aspect-square bg-gray-100 dark:bg-gray-800 relative">
+                            <img alt="Friend profile picture" class="w-full h-full object-cover"
+                                data-alt="Close up of a young woman with curly hair smiling"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtYB_kn3bWcPAbpTN-MGSlh_xHRhhf1q74Dv9_hVrZ0U6Y4JsZvXA7PkP8OEf0L-KX0bA-nHtrc1_hkz0xAi58tzwqRfqAUCec0DmbidryDMP7MaXz7qih9MtHomVMDqgRmzEzR93YWrwymz3pxmjzCkx_2Pas4N3RfuItXdXb6Dugbe-e80EOhYnrZx5Y9xTYkGmtokd_Pde0-UFZjLLJ9p1YUd_DjUBt9Kavb4zU2tpRPVVsG6QcGi4GSvg59Eyse6yW9QJkemM" />
+                        </div>
+                        <div class="p-3 flex flex-col flex-1">
+                            <h4 class="font-bold text-text-main dark:text-white leading-tight mb-1 truncate">Sarah
+                                Jenkins</h4>
+                            <p class="text-xs text-text-secondary dark:text-gray-400 mb-4">15 mutual friends</p>
+                            <div class="mt-auto space-y-2">
+                                <button
+                                    class="w-full bg-primary/10 text-primary hover:bg-primary/20 text-sm font-semibold py-2 rounded-md transition-colors">Message</button>
+                                <button
+                                    class="w-full bg-gray-100 dark:bg-gray-700 text-text-main dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 text-sm font-semibold py-2 rounded-md transition-colors flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-lg">more_horiz</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Friend Card 2 -->
+                    <div
+                        class="bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm flex flex-col group">
+                        <div class="aspect-square bg-gray-100 dark:bg-gray-800 relative">
+                            <img alt="Friend profile picture" class="w-full h-full object-cover"
+                                data-alt="Man standing in a city street looking away"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBYn49Yj5-it0x-tXcEZE0HiLmTk1yQSO2sguIaTFIVPKc-GBgaWBrfjYovGN0rgF6qLwoI77HsHNYz09i5V3qFdLLc9XkKssK5S-9a9ifgNdmOIeqJOU_c52-B3ORBGlsR72tyocLkLzD86ASaCwPk-MVJrYnC2M2mtQnJRjIlDSKD0XEcA-OzxdLsJECP6RXQnDx3tMUnS7EMIoyFYGiZREdSquY-vx6rP1yxt45CZuhIsElgGsAMR2lnWuGD6IC6F5qB_TfUL0" />
+                        </div>
+                        <div class="p-3 flex flex-col flex-1">
+                            <h4 class="font-bold text-text-main dark:text-white leading-tight mb-1 truncate">Michael
+                                Chen</h4>
+                            <p class="text-xs text-text-secondary dark:text-gray-400 mb-4">8 mutual friends</p>
+                            <div class="mt-auto space-y-2">
+                                <button
+                                    class="w-full bg-primary/10 text-primary hover:bg-primary/20 text-sm font-semibold py-2 rounded-md transition-colors">Message</button>
+                                <button
+                                    class="w-full bg-gray-100 dark:bg-gray-700 text-text-main dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 text-sm font-semibold py-2 rounded-md transition-colors flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-lg">more_horiz</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Friend Card 3 -->
+                    <div
+                        class="bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm flex flex-col group">
+                        <div class="aspect-square bg-gray-100 dark:bg-gray-800 relative">
+                            <img alt="Friend profile picture" class="w-full h-full object-cover"
+                                data-alt="Model posing with warm lighting"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyUzPRrOQtMZk7IoAD55GZx8UzyPu_H8-LISVlLXRMagI_-bjY1FerFhFvtO1NRuddCKkheZoEBRsgtRjcoVYZhDkOFZLTRfvhCAkKnJ94l3mccNKACOdEEDEXnvDaCHXUGA7iCcaIaex4q8w60MogrAZR6OkXnhMKiVcqu_TEDPmSYD7vlQtmwBlPSAdtwyrRkaNMyhIsyCt7cUW5IJqTDE_Dg0T-Xp7_anFgdtCgq7-qsZpeoviOSvyb1pEH3QaU_BQ-xiR_7mo" />
+                        </div>
+                        <div class="p-3 flex flex-col flex-1">
+                            <h4 class="font-bold text-text-main dark:text-white leading-tight mb-1 truncate">Emily Ross
+                            </h4>
+                            <p class="text-xs text-text-secondary dark:text-gray-400 mb-4">22 mutual friends</p>
+                            <div class="mt-auto space-y-2">
+                                <button
+                                    class="w-full bg-primary/10 text-primary hover:bg-primary/20 text-sm font-semibold py-2 rounded-md transition-colors">Message</button>
+                                <button
+                                    class="w-full bg-gray-100 dark:bg-gray-700 text-text-main dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 text-sm font-semibold py-2 rounded-md transition-colors flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-lg">more_horiz</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Friend Card 4 -->
+                    <div
+                        class="bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm flex flex-col group">
+                        <div class="aspect-square bg-gray-100 dark:bg-gray-800 relative">
+                            <img alt="Friend profile picture" class="w-full h-full object-cover"
+                                data-alt="Smiling man in a white shirt"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYHsTyb588Qx32e_3dS-eP_8zf__kXCMP7hGdT20q0tKeJDtadIJLH5qxF1lUKiF7SPzpwXiy_gfsWyiZRtqjKlgJEunsqwfqJZzPU2SHy-BLwiWceCwrR3bucWGmAxeHhGos6x7SEwCJaesX_ER282iI7ko0laQ7t8C-_0wgGaiC-pSTAaohK1vXheZRXJjiSwSRs72rdyyIqJiqwMHe2nohNSB2o3moRz4j4EfwfPSDw9v5BOnjKyWV0xoSmvstbSLyPPjvI97Q" />
+                        </div>
+                        <div class="p-3 flex flex-col flex-1">
+                            <h4 class="font-bold text-text-main dark:text-white leading-tight mb-1 truncate">James
+                                Wilson</h4>
+                            <p class="text-xs text-text-secondary dark:text-gray-400 mb-4">3 mutual friends</p>
+                            <div class="mt-auto space-y-2">
+                                <button
+                                    class="w-full bg-primary/10 text-primary hover:bg-primary/20 text-sm font-semibold py-2 rounded-md transition-colors">Message</button>
+                                <button
+                                    class="w-full bg-gray-100 dark:bg-gray-700 text-text-main dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 text-sm font-semibold py-2 rounded-md transition-colors flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-lg">more_horiz</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Friend Card 5 -->
+                    <div
+                        class="bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm flex flex-col group">
+                        <div class="aspect-square bg-gray-100 dark:bg-gray-800 relative">
+                            <img alt="Friend profile picture" class="w-full h-full object-cover"
+                                data-alt="Woman in a hat looking at camera"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX5KWt9Cv2uwKV439n-cjdJ-IgGQbSUyJGUGs4CILkfCms3gSeZqZdN72tnoVMZkprVhd8AflCpoXeTCfuOIL8IHkk9TXxaiR99Gsn9f1mMNXzJgnm1aOwlZG12tXJjPV0qeKtJnf7UDKUyph5LfaZsXT5QjIygzNYkZKGjN-S1YBQQ0YiFvBO1Vqe2Xq5jRczTgsHcDpjlgTZ5vxT9T3bbNNrlNOc_tvUuOOfNIQ0r1vq19rxjJAf1Z-Fbp0S1p0DZ3eCUxHFBOs" />
+                        </div>
+                        <div class="p-3 flex flex-col flex-1">
+                            <h4 class="font-bold text-text-main dark:text-white leading-tight mb-1 truncate">Linda
+                                Garcia</h4>
+                            <p class="text-xs text-text-secondary dark:text-gray-400 mb-4">Work</p>
+                            <div class="mt-auto space-y-2">
+                                <button
+                                    class="w-full bg-primary/10 text-primary hover:bg-primary/20 text-sm font-semibold py-2 rounded-md transition-colors">Message</button>
+                                <button
+                                    class="w-full bg-gray-100 dark:bg-gray-700 text-text-main dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 text-sm font-semibold py-2 rounded-md transition-colors flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-lg">more_horiz</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Right Sidebar: Suggestions -->
+        <aside
+            class="hidden xl:block w-[360px] fixed right-0 h-[calc(100vh-64px)] overflow-y-auto px-4 pb-4 border-l border-transparent">
+            <h3 class="text-lg font-bold text-text-secondary dark:text-gray-400 mb-4 px-2">People You May Know</h3>
+            <div class="flex flex-col gap-3">
+                <!-- Suggestion Item 1 -->
+                <div
+                    class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a3645] transition-colors">
+                    <div class="w-12 h-12 rounded-full overflow-hidden shrink-0">
+                        <img alt="Suggestion Avatar" class="w-full h-full object-cover"
+                            data-alt="Portrait of a young man"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB11OiTO29es0mRMGq9LBZma8dEgYbSZ1KcR9nrkLOFBI_oJWcVrovGK1nkqLMIBh6ACKTJv-_LlcaHjpgDFYv927VKEczRq-TCPHxW09mWTmUKWMRCo0s7cGvBo4787sy4QXnKPX1y0YXfIjcVj_l9Qij5FfoTbb52PXd_Ql4hYvmcBf-feIVRIqnLbyuWhQnRFQgfvT_qtNV6eqLaT5L5j_bLw_HOxkqX8VyfGrwEP1X2rwFj0qpPk_ZNo6lVOgCLWoKz4iUjEGc" />
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-text-main dark:text-white text-sm truncate">Robert Fox</h4>
+                        <p class="text-xs text-text-secondary dark:text-gray-400 truncate">1 mutual friend</p>
+                    </div>
+                    <button class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
+                        <span class="material-symbols-outlined text-xl">person_add</span>
+                    </button>
+                </div>
+                <!-- Suggestion Item 2 -->
+                <div
+                    class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a3645] transition-colors">
+                    <div class="w-12 h-12 rounded-full overflow-hidden shrink-0">
+                        <img alt="Suggestion Avatar" class="w-full h-full object-cover"
+                            data-alt="Portrait of a woman with expressive eyes"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzuznwJRcGZR18SZeTB6aETYy2lwUXR2HKZseUYZADg3xiyMUhILmCdppKNlyfoB9MoFCGXEOXL6sjLGNzDXM7K3ng0L-0DlS3bjqITHg3iemIz5wy6CQpKKYYrZTlA6cnf4_0fYeO86zYwdApV8tpHm1OrqSGdpusEYMDK-uFhzuoT9FdMomqhFcN6Iw4sFFPrslZ3tMv-utGadS6jBeHY036yP5ZW_InnJPQnqF4DKdPIcqJrh6MTMqS9sCgERA3TPrcpoLQMwQ" />
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-text-main dark:text-white text-sm truncate">Bessie Cooper</h4>
+                        <p class="text-xs text-text-secondary dark:text-gray-400 truncate">New to Facebook</p>
+                    </div>
+                    <button class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
+                        <span class="material-symbols-outlined text-xl">person_add</span>
+                    </button>
+                </div>
+                <!-- Suggestion Item 3 -->
+                <div
+                    class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a3645] transition-colors">
+                    <div class="w-12 h-12 rounded-full overflow-hidden shrink-0">
+                        <img alt="Suggestion Avatar" class="w-full h-full object-cover"
+                            data-alt="Man with beard looking serious"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe3GoaV2hbgnA8-1p4BHj146QAIphPsoIUWHBrwg5heHx7su8R0veITxf3J9cyrAfADQJ9XiP2X9Mf993Asx1gpWZvFiyrNOmsMhZTLiCtAtrA1TIOyNJwFsH4QNAiSBP1PJ__y028CbMLr6BSxb39awB-nOFz25TodFDPgKS-BaswMtU3D-jRx1m0djG3MUJ5pbF7sTFfNEjX5X7I-aKbTX4nPwUj9eSkeiO27YW4Kp2BmRhPhhXub4nIZfahXQGlE8guDkC702g" />
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-text-main dark:text-white text-sm truncate">Wade Warren</h4>
+                        <p class="text-xs text-text-secondary dark:text-gray-400 truncate">5 mutual friends</p>
+                    </div>
+                    <button class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
+                        <span class="material-symbols-outlined text-xl">person_add</span>
+                    </button>
+                </div>
+                <!-- Suggestion Item 4 -->
+                <div
+                    class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a3645] transition-colors">
+                    <div class="w-12 h-12 rounded-full overflow-hidden shrink-0">
+                        <img alt="Suggestion Avatar" class="w-full h-full object-cover"
+                            data-alt="Woman laughing in casual wear"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuArVcA3b80k5vRSHLU5uHFbnmtsuuRFS4UN3Vl_nFUqydJC_J1M4ZdumBrP693hW5YlY224lmOEyyop3sATAbaDN5oc2L2BBdukZo-Vqo9R4NmFuVpcZ9AeCuH6NfLCW8bboKmj2hlWpoGe6mj552uC4S_yewxQi6VL7qloYeyXNZ_JYZWdQzQ3uu89ki1ip0QjOL_rh4pu8p1B7tCboNhmxqhL2q2LyhxYKfM84AYnwSabQJDDAnbyMt-Dpvo1KuliVocwRux8AT8" />
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-text-main dark:text-white text-sm truncate">Jenny Wilson</h4>
+                        <p class="text-xs text-text-secondary dark:text-gray-400 truncate">2 mutual friends</p>
+                    </div>
+                    <button class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
+                        <span class="material-symbols-outlined text-xl">person_add</span>
+                    </button>
+                </div>
+            </div>
+            <div class="border-t border-gray-300 dark:border-gray-700 my-4 mx-2"></div>
+            <div class="px-2 text-xs text-text-secondary dark:text-gray-500">
+                <a class="hover:underline" href="#">Privacy</a> · <a class="hover:underline" href="#">Terms</a> · <a
+                    class="hover:underline" href="#">Advertising</a> · <a class="hover:underline" href="#">Ad
+                    Choices</a> · <a class="hover:underline" href="#">Cookies</a> · <span>More</span> · <span>Meta ©
+                    2024</span>
+            </div>
+        </aside>
+    </div>
+</body>
+
+</html>

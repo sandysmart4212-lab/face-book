@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Event Creation &amp; Discovery</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1876f2",
+                        "background-light": "#f0f2f5",
+                        "background-dark": "#18191a",
+                        "card-light": "#ffffff",
+                        "card-dark": "#242526",
+                        "text-main-light": "#050505",
+                        "text-main-dark": "#e4e6eb",
+                        "text-sec-light": "#65676b",
+                        "text-sec-dark": "#b0b3b8",
+                        "border-light": "#ced0d4",
+                        "border-dark": "#3e4042",
+                        "hover-light": "#e4e6eb",
+                        "hover-dark": "#3a3b3c"
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 24px;
+        }
+
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Hide scrollbar for clean look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark overflow-x-hidden min-h-screen flex flex-col">
+    <!-- Top Navigation Bar -->
+    <header
+        class="fixed top-0 z-50 w-full bg-card-light dark:bg-card-dark shadow-sm border-b border-border-light dark:border-border-dark px-4 h-14 flex items-center justify-between">
+        <!-- Left: Logo & Search -->
+        <div class="flex items-center gap-4">
+            <a class="size-10 bg-primary rounded-full flex items-center justify-center text-white cursor-pointer"
+                href="index.html">
+                <svg class="size-6" fill="currentColor" viewbox="0 0 24 24">
+                    <path
+                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z">
+                    </path>
+                </svg>
+            </a>
+            <div
+                class="hidden md:flex items-center bg-background-light dark:bg-hover-dark rounded-full h-10 px-3 w-64 group">
+                <span
+                    class="material-symbols-outlined text-text-sec-light dark:text-text-sec-dark group-focus-within:hidden">search</span>
+                <input
+                    class="bg-transparent border-none focus:ring-0 text-text-main-light dark:text-text-main-dark placeholder-text-sec-light dark:placeholder-text-sec-dark w-full h-full ml-2"
+                    placeholder="Search Facebook" type="text" />
+            </div>
+            <div
+                class="md:hidden size-10 bg-background-light dark:bg-hover-dark rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-text-main-light dark:text-text-main-dark">search</span>
+            </div>
+        </div>
+        <!-- Center: Navigation Tabs -->
+        <div class="hidden lg:flex items-center justify-center gap-2 flex-1 max-w-[600px]">
+            <a class="h-12 flex-1 flex items-center justify-center rounded-lg hover:bg-background-light dark:hover:bg-hover-dark cursor-pointer relative group"
+                href="index.html">
+                <span
+                    class="material-symbols-outlined text-text-sec-light dark:text-text-sec-dark group-hover:text-primary transition-colors text-[28px]">home</span>
+            </a>
+            <a class="h-12 flex-1 flex items-center justify-center rounded-lg hover:bg-background-light dark:hover:bg-hover-dark cursor-pointer relative group border-b-[3px] border-primary"
+                href="events.html">
+                <span class="material-symbols-outlined text-primary text-[28px] filled">event</span>
+            </a>
+            <a class="h-12 flex-1 flex items-center justify-center rounded-lg hover:bg-background-light dark:hover:bg-hover-dark cursor-pointer relative group"
+                href="marketplace.html">
+                <span
+                    class="material-symbols-outlined text-text-sec-light dark:text-text-sec-dark group-hover:text-primary transition-colors text-[28px]">storefront</span>
+            </a>
+            <a class="h-12 flex-1 flex items-center justify-center rounded-lg hover:bg-background-light dark:hover:bg-hover-dark cursor-pointer relative group"
+                href="groups.html">
+                <span
+                    class="material-symbols-outlined text-text-sec-light dark:text-text-sec-dark group-hover:text-primary transition-colors text-[28px]">groups</span>
+            </a>
+        </div>
+        <!-- Right: Profile & Actions -->
+        <div class="flex items-center gap-2 sm:gap-3 justify-end">
+            <div
+                class="size-10 bg-background-light dark:bg-hover-dark rounded-full flex items-center justify-center cursor-pointer hover:bg-hover-light dark:hover:bg-gray-700 transition-colors">
+                <span class="material-symbols-outlined text-black dark:text-white text-[20px] filled">apps</span>
+            </div>
+            <a class="size-10 bg-background-light dark:bg-hover-dark rounded-full flex items-center justify-center cursor-pointer hover:bg-hover-light dark:hover:bg-gray-700 transition-colors"
+                href="messages.html">
+                <span class="material-symbols-outlined text-black dark:text-white text-[20px] filled">chat_bubble</span>
+            </a>
+            <a class="size-10 bg-background-light dark:bg-hover-dark rounded-full flex items-center justify-center cursor-pointer hover:bg-hover-light dark:hover:bg-gray-700 transition-colors relative"
+                href="notifications.html">
+                <span
+                    class="material-symbols-outlined text-black dark:text-white text-[20px] filled">notifications</span>
+                <div
+                    class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full border-2 border-card-light dark:border-card-dark">
+                    3</div>
+            </a>
+            <a class="size-10 rounded-full bg-gray-300 overflow-hidden cursor-pointer"
+                data-alt="User profile picture showing a smiling person" href="profile.html">
+                <img alt="User Avatar" class="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuApmP-jDRYJg8Ncc20usRO1HtcN2rb_ZpLw-0aPu3mRmeLUiJTecoXit4hRlWTHS7H8PaTnUVvmL0oaB8j6qmQ7lQtgKSFft107z7ql3pYWCHhjTTIV3jyXyBlxF9kYPfmXM1cdWNGD2byzJ0bfTqcupygYbS7sJaWP99Wkz2gGO32eATub1MSv9qdj0swJjktHvsp7zACTwe9LyC48za5UyS8cQMhPl7DQrPVNGxl0-yp_x7bjcSkgIB5pthut28vwDTfbp12HGSw" />
+            </a>
+        </div>
+    </header>
+    <!-- Main Layout -->
+    <main class="pt-14 flex flex-1 h-screen overflow-hidden">
+        <!-- Left Sidebar (Navigation & Filters) -->
+        <aside
+            class="hidden xl:flex flex-col w-[360px] p-4 overflow-y-auto no-scrollbar fixed left-0 top-14 bottom-0 hover:overflow-y-auto">
+            <h1 class="text-2xl font-bold mb-4 px-2">Events</h1>
+            <div class="flex flex-col gap-1 mb-4">
+                <button
+                    class="flex items-center gap-3 px-2 py-2 rounded-lg bg-hover-light dark:bg-hover-dark hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <div class="size-9 rounded-full bg-primary flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined text-[20px] filled">explore</span>
+                    </div>
+                    <span class="text-[15px] font-semibold">Discover Events</span>
+                </button>
+                <button
+                    class="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-hover-light dark:hover:bg-hover-dark transition-colors">
+                    <div
+                        class="size-9 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-text-main-light dark:text-text-main-dark">
+                        <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+                    </div>
+                    <span class="text-[15px] font-medium">Your Events</span>
+                </button>
+                <button
+                    class="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-hover-light dark:hover:bg-hover-dark transition-colors">
+                    <div
+                        class="size-9 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-text-main-light dark:text-text-main-dark">
+                        <span class="material-symbols-outlined text-[20px]">cake</span>
+                    </div>
+                    <span class="text-[15px] font-medium">Birthdays</span>
+                </button>
+            </div>
+            <div class="border-t border-border-light dark:border-border-dark my-2 mx-2"></div>
+            <h3 class="text-lg font-semibold px-2 mt-2 mb-2">Categories</h3>
+            <div class="flex flex-col gap-1">
+                <button
+                    class="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-hover-light dark:hover:bg-hover-dark transition-colors">
+                    <div class="size-9 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[20px]">music_note</span>
+                    </div>
+                    <span class="text-[15px] font-medium">Music</span>
+                </button>
+                <button
+                    class="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-hover-light dark:hover:bg-hover-dark transition-colors">
+                    <div class="size-9 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[20px]">memory</span>
+                    </div>
+                    <span class="text-[15px] font-medium">Tech</span>
+                </button>
+                <button
+                    class="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-hover-light dark:hover:bg-hover-dark transition-colors">
+                    <div class="size-9 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[20px]">palette</span>
+                    </div>
+                    <span class="text-[15px] font-medium">Arts</span>
+                </button>
+                <button
+                    class="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-hover-light dark:hover:bg-hover-dark transition-colors">
+                    <div class="size-9 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[20px]">sports_basketball</span>
+                    </div>
+                    <span class="text-[15px] font-medium">Sports</span>
+                </button>
+            </div>
+            <button
+                class="mt-4 mx-2 py-2 px-4 bg-primary/10 hover:bg-primary/20 text-primary font-semibold rounded-lg text-sm transition-colors text-center">
+                + Create New Event
+            </button>
+        </aside>
+        <!-- Center Feed (Main Content) -->
+        <section
+            class="flex-1 flex justify-center overflow-y-auto xl:pl-[360px] xl:pr-[360px] w-full bg-background-light dark:bg-background-dark">
+            <div class="w-full max-w-[700px] py-6 px-4 flex flex-col gap-6">
+                <!-- Header Actions for Mobile/Tablet -->
+                <div class="flex xl:hidden justify-between items-center mb-2">
+                    <h1 class="text-2xl font-bold">Events</h1>
+                    <button class="bg-primary text-white px-4 py-2 rounded-lg font-medium text-sm">+ Create</button>
+                </div>
+                <!-- Chips / Quick Filters -->
+                <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+                    <button
+                        class="whitespace-nowrap px-4 py-2 rounded-full bg-primary text-white font-medium text-sm transition-colors shadow-sm">Top</button>
+                    <button
+                        class="whitespace-nowrap px-4 py-2 rounded-full bg-card-light dark:bg-card-dark hover:bg-gray-200 dark:hover:bg-hover-dark text-text-main-light dark:text-text-main-dark font-medium text-sm transition-colors shadow-sm">Local</button>
+                    <button
+                        class="whitespace-nowrap px-4 py-2 rounded-full bg-card-light dark:bg-card-dark hover:bg-gray-200 dark:hover:bg-hover-dark text-text-main-light dark:text-text-main-dark font-medium text-sm transition-colors shadow-sm">This
+                        Week</button>
+                    <button
+                        class="whitespace-nowrap px-4 py-2 rounded-full bg-card-light dark:bg-card-dark hover:bg-gray-200 dark:hover:bg-hover-dark text-text-main-light dark:text-text-main-dark font-medium text-sm transition-colors shadow-sm">Online</button>
+                    <button
+                        class="whitespace-nowrap px-4 py-2 rounded-full bg-card-light dark:bg-card-dark hover:bg-gray-200 dark:hover:bg-hover-dark text-text-main-light dark:text-text-main-dark font-medium text-sm transition-colors shadow-sm">Friends</button>
+                </div>
+                <!-- Create Event Hero Card -->
+                <div
+                    class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm p-4 border border-border-light dark:border-border-dark">
+                    <div class="flex gap-3 border-b border-border-light dark:border-border-dark pb-3">
+                        <div class="size-10 rounded-full bg-gray-300 overflow-hidden shrink-0"
+                            data-alt="User profile picture">
+                            <img alt="User Avatar" class="w-full h-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmXkV8FAY2WG1SO0An6tz8hH7fzQ0XNot16Nln1D77oJunShbnGjd1TZWcH5Bwz09zBzjSw3fyNMEXudwRR1d7SLVHKf3K3mqa_6hBtLLAcDxhNWKRbzTSMjg8lJDvdxwqzmoM6ZfToQRFcSCzZFbgzcUHqntAPS1Nb997qBwu89h_96-YSA0LrpwQl6XzIKONFEc43RZGvXEKSGzUV_bgLTLZ6l70OympgBNJxouaSa8hKvGzlsc6WhmnKQMtstQlRFeuS2JJbhs" />
+                        </div>
+                        <div
+                            class="flex-1 bg-background-light dark:bg-hover-dark rounded-full flex items-center px-4 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                            <span class="text-text-sec-light dark:text-text-sec-dark text-sm sm:text-base">Create a new
+                                event...</span>
+                        </div>
+                    </div>
+                    <div class="flex pt-3">
+                        <button
+                            class="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg hover:bg-hover-light dark:hover:bg-hover-dark transition-colors">
+                            <span class="material-symbols-outlined text-red-500 filled">videocam</span>
+                            <span class="font-semibold text-text-sec-light dark:text-text-sec-dark text-sm">Online
+                                Event</span>
+                        </button>
+                        <button
+                            class="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg hover:bg-hover-light dark:hover:bg-hover-dark transition-colors">
+                            <span class="material-symbols-outlined text-green-500 filled">location_on</span>
+                            <span class="font-semibold text-text-sec-light dark:text-text-sec-dark text-sm">In
+                                Person</span>
+                        </button>
+                    </div>
+                </div>
+                <h2 class="text-xl font-bold mt-2">Upcoming Events</h2>
+                <!-- Event Card 1 -->
+                <div
+                    class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm overflow-hidden border border-border-light dark:border-border-dark group">
+                    <div class="relative h-48 sm:h-64 w-full bg-gray-200"
+                        data-alt="A clean modern workspace with laptops and coffee for a coding workshop">
+                        <img alt="Coding workshop event cover" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEIeULSfUWd9k2iyUnqvwUAZPD_uBPZL8IDg6cBu2Gl3sZr7O45JuVHhCe30POTiHh6HI4jgw4S6uUzBTJ1Nm2brXTDVBRXp6v4d5yiimMPVspllJ2YbHvCd6Y9zetCk6zBgrS36h5GBFXHNRz41qAs0TT_lX8MS3UJue4VTBgSaUHNMNEw3e3kBsY0lioEVJwBfaQDpIBcZrHWMF0co1MfWeJs4BEbDbZKsbYjiz9cRC57ZIQSlPmuLi8qgEVggMmcAxXSm4jJ80" />
+                        <div
+                            class="absolute top-3 left-3 bg-white dark:bg-card-dark rounded-lg px-3 py-1 flex flex-col items-center shadow-md border border-gray-100 dark:border-gray-700">
+                            <span class="text-xs font-bold text-red-500 uppercase">Nov</span>
+                            <span class="text-xl font-black text-text-main-light dark:text-text-main-dark">12</span>
+                        </div>
+                        <div
+                            class="absolute top-3 right-3 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full cursor-pointer backdrop-blur-sm transition-colors">
+                            <span class="material-symbols-outlined text-[20px] block">favorite</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h2
+                                    class="text-xl font-bold text-text-main-light dark:text-text-main-dark leading-tight mb-1 group-hover:text-primary transition-colors cursor-pointer">
+                                    Saturday Morning Coding Workshop</h2>
+                                <p class="text-red-500 font-medium text-sm mb-1">SAT, NOV 12 AT 10:00 AM</p>
+                                <p
+                                    class="text-text-sec-light dark:text-text-sec-dark text-sm flex items-center gap-1 mb-3">
+                                    <span class="material-symbols-outlined text-[16px]">location_on</span>
+                                    Downtown Tech Hub
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="flex -space-x-2 overflow-hidden">
+                                <img alt="Attendee 1"
+                                    class="inline-block size-6 rounded-full ring-2 ring-white dark:ring-card-dark"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsiDApUjXRW4T_bsDWOQbROnLK9iJpEsVYLhtYj7KhdlWLsJxA4x-ADP2pEMfpJgPYnmQBt0ZZ8vOZFWlPApoHgF51fvYI8nnN-aqDY5HOZFDr1Tln5duLevp1N4Q1dHb4zC0-pPjdS1xWoE2PkXukFqWy_AZctWTBk4dGrI4LEZOPj718TKUMkUfwckmAELwtwPBnY6Y4iZeJFG73FGy2AgoQyRD5PRP2gXfgP_FzKJTE2YVNtjmIKCdunHfdaB9cR-MMY_OEdaM" />
+                                <img alt="Attendee 2"
+                                    class="inline-block size-6 rounded-full ring-2 ring-white dark:ring-card-dark"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMdxv9v8gWGigXdYPHPaPAQtYis_V2khJtAEeA47M_tUtUiKzCb9U8aKpQd29acXLQBGcyKOItTbqm7pPBhjWmLYWwDSAoy-k9YGckSi6vlMCEVCkC-5yZRnddwwk8jh4YZDXZbnh2ink1SHa0cCpJVGabk_BjVTVAy5xKVlBnMFeiBHW2Ihw_kHoWT7FY_P1YdeZEO3DS1kEI2Hi22OKn5oTrCKjL3w4X6IqMMTeTfBAa9gQE_aBNLz58eCCHGdZxXO_ziPf29FQ" />
+                                <img alt="Attendee 3"
+                                    class="inline-block size-6 rounded-full ring-2 ring-white dark:ring-card-dark"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbFPbnjfEznk0vd-vcQGpZAj-rA50rEeUSwJeVrFo0OYDsp2flRdR2ROUmaDF5X9FEyhMpQz7Do-PjymqS4c35nf3qw3rV4ccqrODtaQd7aoUbeUU24w0dBd-Lb_7nH1drGIm62zpyTsh11MOfRiM9GBfsaLj84IQ6LxxQGMRZ-ZlxO5dLYJqpAqFi36Gpw9Jhegfy5PaLVkpHxJKQF4FchRIph_B_INi6Qgmsa4xOO5cbRwq1ti7rKyGdjmqgF56d_y2FkrsoU_Q" />
+                            </div>
+                            <span class="text-sm text-text-sec-light dark:text-text-sec-dark font-medium">24 people
+                                going</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button
+                                class="flex-1 bg-primary hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-[20px] filled">star</span>
+                                Interested
+                            </button>
+                            <button
+                                class="flex-1 bg-background-light dark:bg-hover-dark hover:bg-gray-200 dark:hover:bg-gray-700 text-text-main-light dark:text-text-main-dark font-semibold py-2 rounded-lg transition-colors border border-transparent dark:border-border-dark">
+                                Going
+                            </button>
+                            <button
+                                class="px-3 bg-background-light dark:bg-hover-dark hover:bg-gray-200 dark:hover:bg-gray-700 text-text-main-light dark:text-text-main-dark rounded-lg transition-colors flex items-center justify-center border border-transparent dark:border-border-dark">
+                                <span class="material-symbols-outlined text-[20px]">share</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Event Card 2 -->
+                <div
+                    class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm overflow-hidden border border-border-light dark:border-border-dark group">
+                    <div class="relative h-48 sm:h-64 w-full bg-gray-200"
+                        data-alt="Crowd of people enjoying food trucks in a park at sunset">
+                        <img alt="Food Truck Festival event cover" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCH6rIr8JVgr0iYZ8-guITZmMk-OehBV94rV4zXv0Bsr8blGOw8a2E03sJU3B2atCubw1-ij5zkS9sdYg55fugTvgRJQecUk-eyOXroLFLyA1gkEQHA7Vjc-9C-Y19VIp43rs91U9c4oKuNlQMYEj8MBZCZ56fRabDrHtHi4oA1MxsFmyt9GpiU8gIPrTL9_XRA5VCDomC6e6GeybOlGSBoZp7kMLsQBACT__mWlQ3jYnHKymkcaEy1Vz7n6XfYlKqEas9yVYvZhhs" />
+                        <div
+                            class="absolute top-3 left-3 bg-white dark:bg-card-dark rounded-lg px-3 py-1 flex flex-col items-center shadow-md border border-gray-100 dark:border-gray-700">
+                            <span class="text-xs font-bold text-red-500 uppercase">Nov</span>
+                            <span class="text-xl font-black text-text-main-light dark:text-text-main-dark">18</span>
+                        </div>
+                        <div
+                            class="absolute top-3 right-3 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full cursor-pointer backdrop-blur-sm transition-colors">
+                            <span class="material-symbols-outlined text-[20px] block">favorite</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h2
+                                    class="text-xl font-bold text-text-main-light dark:text-text-main-dark leading-tight mb-1 group-hover:text-primary transition-colors cursor-pointer">
+                                    Downtown Food Truck Festival</h2>
+                                <p class="text-red-500 font-medium text-sm mb-1">FRI, NOV 18 AT 5:00 PM</p>
+                                <p
+                                    class="text-text-sec-light dark:text-text-sec-dark text-sm flex items-center gap-1 mb-3">
+                                    <span class="material-symbols-outlined text-[16px]">location_on</span>
+                                    City Park Square
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-sm text-text-sec-light dark:text-text-sec-dark font-medium">1.2k
+                                interested · 2 Friends going</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button
+                                class="flex-1 bg-background-light dark:bg-hover-dark hover:bg-gray-200 dark:hover:bg-gray-700 text-text-main-light dark:text-text-main-dark font-semibold py-2 rounded-lg transition-colors border border-transparent dark:border-border-dark flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-[20px]">star</span>
+                                Interested
+                            </button>
+                            <button
+                                class="flex-1 bg-background-light dark:bg-hover-dark hover:bg-gray-200 dark:hover:bg-gray-700 text-text-main-light dark:text-text-main-dark font-semibold py-2 rounded-lg transition-colors border border-transparent dark:border-border-dark">
+                                Going
+                            </button>
+                            <button
+                                class="px-3 bg-background-light dark:bg-hover-dark hover:bg-gray-200 dark:hover:bg-gray-700 text-text-main-light dark:text-text-main-dark rounded-lg transition-colors flex items-center justify-center border border-transparent dark:border-border-dark">
+                                <span class="material-symbols-outlined text-[20px]">share</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Event Card 3 -->
+                <div
+                    class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm overflow-hidden border border-border-light dark:border-border-dark group">
+                    <div class="relative h-48 sm:h-64 w-full bg-gray-200"
+                        data-alt="Abstract calming gradient representing wellness and yoga">
+                        <div class="w-full h-full bg-gradient-to-br from-purple-400 to-pink-300"></div>
+                        <div
+                            class="absolute top-3 left-3 bg-white dark:bg-card-dark rounded-lg px-3 py-1 flex flex-col items-center shadow-md border border-gray-100 dark:border-gray-700">
+                            <span class="text-xs font-bold text-red-500 uppercase">Nov</span>
+                            <span class="text-xl font-black text-text-main-light dark:text-text-main-dark">20</span>
+                        </div>
+                        <div
+                            class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded text-xs font-bold flex items-center gap-1 backdrop-blur-md">
+                            <span class="material-symbols-outlined text-[14px]">videocam</span> Online
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h2
+                                    class="text-xl font-bold text-text-main-light dark:text-text-main-dark leading-tight mb-1 group-hover:text-primary transition-colors cursor-pointer">
+                                    Virtual Yoga Session</h2>
+                                <p class="text-red-500 font-medium text-sm mb-1">SUN, NOV 20 AT 9:00 AM</p>
+                                <p
+                                    class="text-text-sec-light dark:text-text-sec-dark text-sm flex items-center gap-1 mb-3">
+                                    <span class="material-symbols-outlined text-[16px]">computer</span>
+                                    Zoom Link
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 mb-4 bg-primary/10 p-2 rounded-md">
+                            <div class="size-6 rounded-full bg-gray-300 overflow-hidden shrink-0"
+                                data-alt="Profile of friend who invited you">
+                                <img alt="Friend Avatar" class="w-full h-full object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg2MFcCpfVXW-4Muso7u3yswYnMc_io_CI79GtlcICQ-ouDLrXCK9AhnZCHaKYDCBGRhUfhfbXziYIXocSzTFnvvnI_Qe5D3g-Wi4RGAYSS8g-15D6f-6kRaayuIWUF0ITZxvZOsl1Mnb5Bj6dD9OW6QT3lIDHxE1XIRI6pKL-Qj8Fsv-rZFEwe5XiMc-6G8q8uYNMQmOZKyKkSNjoJsrjgQZ25i5GBV_P67wSv5gdMrfQ6mp9rTUyafRghrW4bnu-TgAtMVeXu34" />
+                            </div>
+                            <span class="text-sm text-text-sec-light dark:text-text-sec-dark"><strong>Sarah</strong>
+                                invited you to this event.</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button
+                                class="flex-1 bg-background-light dark:bg-hover-dark hover:bg-gray-200 dark:hover:bg-gray-700 text-text-main-light dark:text-text-main-dark font-semibold py-2 rounded-lg transition-colors border border-transparent dark:border-border-dark flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-[20px]">star</span>
+                                Interested
+                            </button>
+                            <button
+                                class="flex-1 bg-background-light dark:bg-hover-dark hover:bg-gray-200 dark:hover:bg-gray-700 text-text-main-light dark:text-text-main-dark font-semibold py-2 rounded-lg transition-colors border border-transparent dark:border-border-dark">
+                                Going
+                            </button>
+                            <button
+                                class="px-3 bg-background-light dark:bg-hover-dark hover:bg-gray-200 dark:hover:bg-gray-700 text-text-main-light dark:text-text-main-dark rounded-lg transition-colors flex items-center justify-center border border-transparent dark:border-border-dark">
+                                <span class="material-symbols-outlined text-[20px]">close</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Right Sidebar (Calendar & Sponsored) -->
+        <aside class="hidden xl:flex flex-col w-[360px] p-4 fixed right-0 top-14 bottom-0 overflow-y-auto no-scrollbar">
+            <!-- Mini Calendar Widget -->
+            <div
+                class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-border-light dark:border-border-dark p-4 mb-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-lg">November 2023</h3>
+                    <div class="flex gap-2">
+                        <button class="hover:bg-hover-light dark:hover:bg-hover-dark rounded-full p-1"><span
+                                class="material-symbols-outlined">chevron_left</span></button>
+                        <button class="hover:bg-hover-light dark:hover:bg-hover-dark rounded-full p-1"><span
+                                class="material-symbols-outlined">chevron_right</span></button>
+                    </div>
+                </div>
+                <div
+                    class="grid grid-cols-7 text-center text-xs font-semibold text-text-sec-light dark:text-text-sec-dark mb-2">
+                    <div>S</div>
+                    <div>M</div>
+                    <div>T</div>
+                    <div>W</div>
+                    <div>T</div>
+                    <div>F</div>
+                    <div>S</div>
+                </div>
+                <div class="grid grid-cols-7 text-center gap-y-2 text-sm">
+                    <!-- Placeholder days -->
+                    <div class="text-gray-300 dark:text-gray-600">29</div>
+                    <div class="text-gray-300 dark:text-gray-600">30</div>
+                    <div class="text-gray-300 dark:text-gray-600">31</div>
+                    <div class="hover:bg-hover-light dark:hover:bg-hover-dark rounded-full py-1 cursor-pointer">1</div>
+                    <div class="hover:bg-hover-light dark:hover:bg-hover-dark rounded-full py-1 cursor-pointer">2</div>
+                    <div class="hover:bg-hover-light dark:hover:bg-hover-dark rounded-full py-1 cursor-pointer">3</div>
+                    <div class="hover:bg-hover-light dark:hover:bg-hover-dark rounded-full py-1 cursor-pointer">4</div>
+                    <div class="hover:bg-hover-light dark:hover:bg-hover-dark rounded-full py-1 cursor-pointer">5</div>
+                    <div class="hover:bg-hover-light dark:hover:bg-hover-dark rounded-full py-1 cursor-pointer">6</div>
+                    <div class="bg-primary text-white rounded-full py-1 cursor-pointer">7</div>
+                    <div class="hover:bg-hover-light dark:hover:bg-hover-dark rounded-full py-1 cursor-pointer">8</div>
+                    <div class="hover:bg-hover-light dark:hover:bg-hover-dark rounded-full py-1 cursor-pointer">9</div>
+                    <div
+                        class="hover:bg-hover-light dark:hover:bg-hover-dark rounded-full py-1 cursor-pointer relative">
+                        10
+                        <span
+                            class="absolute bottom-0.5 left-1/2 -translate-x-1/2 size-1 bg-red-500 rounded-full"></span>
+                    </div>
+                    <div class="hover:bg-hover-light dark:hover:bg-hover-dark rounded-full py-1 cursor-pointer">11</div>
+                    <div
+                        class="hover:bg-hover-light dark:hover:bg-hover-dark rounded-full py-1 cursor-pointer relative">
+                        12
+                        <span
+                            class="absolute bottom-0.5 left-1/2 -translate-x-1/2 size-1 bg-primary rounded-full"></span>
+                    </div>
+                    <!-- ... abbreviated ... -->
+                </div>
+            </div>
+            <!-- Birthdays -->
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-text-sec-light dark:text-text-sec-dark mb-2">Birthdays</h3>
+                <div
+                    class="flex items-center gap-3 p-2 rounded-lg hover:bg-hover-light dark:hover:bg-hover-dark transition-colors cursor-pointer">
+                    <span
+                        class="material-symbols-outlined text-primary text-[32px] filled">featured_seasonal_and_gifts</span>
+                    <div>
+                        <p class="text-sm"><strong>Jessica Jones</strong> and <strong>2 others</strong> have birthdays
+                            today.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-border-light dark:border-border-dark my-2"></div>
+            <!-- Suggested Events -->
+            <div class="mt-2">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-lg font-semibold text-text-sec-light dark:text-text-sec-dark">Suggested for you</h3>
+                    <a class="text-primary text-sm hover:underline" href="#">See all</a>
+                </div>
+                <div
+                    class="flex gap-3 mb-3 p-2 rounded-lg hover:bg-hover-light dark:hover:bg-hover-dark transition-colors cursor-pointer group">
+                    <div class="size-16 rounded-lg bg-gray-200 overflow-hidden shrink-0"
+                        data-alt="Small thumbnail for a local art show">
+                        <img alt="Art Show" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHEVB4CET5Nu6HjG4exCV49Nyy0ClOc9Gcq2VSDDy5WMTyTcgZDh58Ci0g84m-jOk2jW9oGY59BIIe5KDNRITvr8-Co-Qyhi0lNP2fBJU63N3Td-wcBQnZLs43vbkjVa1kW45cldO7d4BQAgkXvOuiadXyLM5iXtcWMlgaBWAOvg8FfHD1WaJ-APQIsVEaFzVYGmj4HJn-I-XAe2PuZFWOqR71ncWRlvYc2SXvuW5St4u0Ji7Mxxf55z-beBEJuu2kZq4xe8rcFkI" />
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <p class="text-xs text-red-500 font-bold uppercase">Dec 1</p>
+                        <p
+                            class="text-sm font-bold text-text-main-light dark:text-text-main-dark line-clamp-1 group-hover:text-primary transition-colors">
+                            Modern Art Exhibit Opening</p>
+                        <p class="text-xs text-text-sec-light dark:text-text-sec-dark mt-0.5"><span
+                                class="material-symbols-outlined text-[12px] align-middle">location_on</span> City
+                            Gallery</p>
+                    </div>
+                </div>
+                <div
+                    class="flex gap-3 p-2 rounded-lg hover:bg-hover-light dark:hover:bg-hover-dark transition-colors cursor-pointer group">
+                    <div class="size-16 rounded-lg bg-gray-200 overflow-hidden shrink-0"
+                        data-alt="Small thumbnail for a tech meetup">
+                        <img alt="Tech Meetup" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0K7m9gk5exRk3vWUQ7Yiy4TMU5EoghXQCbAYyYzHv1Dzf2m4OMQeb1644qHA_Puknk2ErAWOAWGkAhKvAV3xKBczRVwgrA4lWAHonczeDEBNTujZA8y_Q-kBiTk_PizszdRT1mM8LbDN1yolk733guh5PpG7whhKIXWmhD7o_Vb4XF-U3U1uw5444SKWABB_axrML0YV_sA0PevV4NEgsd8czCgZEpJUTdpGLYFxTfUS0tC_9RPQLlT9U316CkwaFbiyO_PUnHKY" />
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <p class="text-xs text-red-500 font-bold uppercase">Dec 5</p>
+                        <p
+                            class="text-sm font-bold text-text-main-light dark:text-text-main-dark line-clamp-1 group-hover:text-primary transition-colors">
+                            Startup Networking Night</p>
+                        <p class="text-xs text-text-sec-light dark:text-text-sec-dark mt-0.5"><span
+                                class="material-symbols-outlined text-[12px] align-middle">location_on</span> Innovation
+                            Hub</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+</body>
+
+</html>
